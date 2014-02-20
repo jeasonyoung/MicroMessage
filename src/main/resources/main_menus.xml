@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ipower verion="1.0" xmlns="http://ipower.org/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ipower.org/ iPowerSchema.xsd ">
+  <system id="MMSS000000000000000000000000000" sign="ipower.micromessage" name="微信公众账号管理系统" description="微信后台管理">
+  	<module id="MMSS000000000000000000000000001" name="接入管理" uri="" order="1">
+  		<module id="MMSS000000000000000000000000101" name="公众账号设置" uri="" order="1"/>
+  	</module>
+  </system>
+</ipower>
