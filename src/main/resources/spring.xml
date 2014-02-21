@@ -11,6 +11,8 @@
 	<import resource="spring-dao.xml"/>
 	<!--spring-service-->
 	<import resource="spring-service.xml"/>
+	<!--spring-servlet -->
+	<import resource="spring-servlet.xml"/>
 	<!--spring-action-->
 	<import resource="spring-action.xml"/>
 </beans>

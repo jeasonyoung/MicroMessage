@@ -1,4 +1,4 @@
-package ipower.micromessage;
+package ipower.micromessage.servlets;
 
 import java.io.IOException;
 

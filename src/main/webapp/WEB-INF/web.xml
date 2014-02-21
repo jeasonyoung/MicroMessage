@@ -7,11 +7,28 @@
   <servlet>
   	<servlet-name>druidStatView</servlet-name>
   	<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
-  	<load-on-startup>1</load-on-startup>
+  	<load-on-startup>2</load-on-startup>
   </servlet>
   <servlet-mapping>
   	<servlet-name>druidStatView</servlet-name>
   	<url-pattern>/druid/*</url-pattern>
+  </servlet-mapping>
+  
+  <!--Servlet(由Spring管理) -->
+  <servlet>
+  	<servlet-name>CoreServletProxy</servlet-name>
+  	<servlet-class>ipower.micromessage.servlets.ServletProxy</servlet-class>
+  	<description>代理Servlet，由Spring管理被代理对象</description>
+  	<init-param>
+  		<param-name>targetServletBean</param-name>
+  		<param-value>coreServlet</param-value>
+  		<description>与微信通信的核心Servlet.</description>
+  	</init-param>
+  	<load-on-startup>3</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CoreServletProxy</servlet-name>
+  	<url-pattern>/WX/CoreServlet</url-pattern>
   </servlet-mapping>
   
   <!--spring配置文件位置-->
