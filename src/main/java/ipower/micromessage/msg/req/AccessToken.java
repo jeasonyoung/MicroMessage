@@ -1,4 +1,4 @@
-package ipower.micromessage.domain;
+package ipower.micromessage.msg.req;
 
 import java.io.Serializable;
 
