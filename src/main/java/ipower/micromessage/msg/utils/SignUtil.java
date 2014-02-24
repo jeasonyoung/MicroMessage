@@ -1,4 +1,4 @@
-package ipower.micromessage.utils;
+package ipower.micromessage.msg.utils;
 
 import ipower.utils.MD5Util;
 

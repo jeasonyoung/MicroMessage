@@ -1,6 +1,6 @@
 package ipower.micromessage.servlets;
 
-import ipower.micromessage.utils.SignUtil;
+import ipower.micromessage.msg.utils.SignUtil;
 
 import java.io.IOException;
 import java.io.PrintWriter;
