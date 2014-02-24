@@ -1,6 +1,7 @@
 package ipower.micromessage.msg;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 消息基类。
@@ -11,6 +12,12 @@ public abstract class BaseMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String toUserName,fromUserName,msgType;
 	private Long createTime;
+	/**
+	 * 构造函数。
+	 * */
+	public BaseMessage(){
+		this.setCreateTime(new Date().getTime());
+	}
 	/**
 	 * 获取目标方帐号。
 	 * @return 目标帐号。

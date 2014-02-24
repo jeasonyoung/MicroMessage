@@ -4,6 +4,8 @@
 	
 	<!--与微信通信的Servlet -->
 	<bean id="coreServlet" class="ipower.micromessage.servlets.CoreServlet" destroy-method="destroy">
-		<property name="token" value="yangyong"/>
+		<!--微信核心业务服务 -->
+		<property name="coreService" ref="coreService"/>
 	</bean>
+	
 </beans>

@@ -11,6 +11,12 @@ public class VideoRespMessage extends BaseRespMessage {
 	private static final long serialVersionUID = 1L;
 	private Video video;
 	/**
+	 * 构造函数。
+	 * */
+	public VideoRespMessage(){
+		this.setMsgType("video");
+	}
+	/**
 	 * 获取视频信息。
 	 * @return 视频信息。
 	 * */

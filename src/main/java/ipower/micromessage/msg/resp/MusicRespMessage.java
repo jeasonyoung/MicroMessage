@@ -11,6 +11,12 @@ public class MusicRespMessage extends BaseRespMessage {
 	private static final long serialVersionUID = 1L;
 	private Music music;
 	/**
+	 * 构造函数。
+	 * */
+	public MusicRespMessage(){
+		this.setMsgType("music");
+	}
+	/**
 	 * 获取音乐信息。
 	 * @return 音乐信息。
 	 * */

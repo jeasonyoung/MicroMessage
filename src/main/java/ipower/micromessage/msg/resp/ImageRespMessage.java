@@ -11,6 +11,12 @@ public class ImageRespMessage extends BaseRespMessage {
 	private static final long serialVersionUID = 1L;
 	private Image image;
 	/**
+	 * 构造函数。
+	 * */
+	public ImageRespMessage(){
+		this.setMsgType("image");
+	}
+	/**
 	 * 获取图片信息。
 	 * @return 图片信息。
 	 * */

@@ -1,6 +1,7 @@
 package ipower.micromessage.servlets;
 
 import ipower.micromessage.msg.utils.SignUtil;
+import ipower.micromessage.service.https.ICoreService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,14 +22,14 @@ import org.apache.log4j.Logger;
 public class CoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 381665767336444132L;
 	private static Logger logger = Logger.getLogger(CoreServlet.class);
-	private String token;
+	private ICoreService coreService;
 	/**
-	 * 设置微信令牌。
-	 * @param token
-	 *  微信令牌.
+	 * 设置微信核心业务服务接口。
+	 * @param coreService
+	 * 微信核心业务服务接口。
 	 * */
-	public void setToken(String token) {
-		this.token = token;
+	public void setCoreService(ICoreService coreService) {
+		this.coreService = coreService;
 	}
 	/**
 	 * 确认请求来自微信服务器。
@@ -49,21 +50,37 @@ public class CoreServlet extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		try{
 			// 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败 
-			if(SignUtil.checkSignature(signature, this.token, timestamp, nonce)){
+			if(SignUtil.checkSignature(signature, this.coreService.token(), timestamp, nonce)){
 				out.print(echostr);
 				logger.info("signature=" + signature + ",timestamp=" + timestamp + ",nonce=" + nonce + ",echostr=" + echostr);
 			}
 		}catch(Exception e){
 			logger.error("发生异常：" + e.getMessage(), e);
-			out.print("发生异常：" + e.getMessage());
+			out.print(echostr);
 		}
 	}
 	/**
-	 * 
+	 * 处理微信服务器发来的消息。
+	 * @param req
+	 * @param resp
 	 * */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException{
-		
+		//将请求、响应的编码均设置为utf-8(防止中文乱码)
+		req.setCharacterEncoding("UTF-8");
+		resp.setCharacterEncoding("UTF-8");
+		try {
+			//调用核心业务服务接收消息、处理消息。
+			String respMsg = this.coreService.processRequest(req);
+			logger.info("响应消息：" + respMsg);
+			//响应消息。
+			PrintWriter out = resp.getWriter();
+			out.print(respMsg);
+			out.close();
+		} catch (Exception e) {
+			logger.error("处理微信服务器发来的消息时发生异常：", e);
+			e.printStackTrace();
+		}
 	}
 }

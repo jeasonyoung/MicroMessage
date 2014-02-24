@@ -8,6 +8,12 @@ public class TextRespMessage extends BaseRespMessage {
 	private static final long serialVersionUID = 1L;
 	private String content;
 	/**
+	 * 构造函数。
+	 * */
+	public TextRespMessage(){
+		this.setMsgType("text");
+	}
+	/**
 	 * 获取消息内容。
 	 * @return 消息内容。
 	 * */
@@ -22,5 +28,4 @@ public class TextRespMessage extends BaseRespMessage {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
 }

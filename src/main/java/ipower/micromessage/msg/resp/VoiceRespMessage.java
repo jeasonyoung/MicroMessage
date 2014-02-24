@@ -11,6 +11,12 @@ public class VoiceRespMessage extends BaseRespMessage {
 	private static final long serialVersionUID = 1L;
 	private Voice voice;
 	/**
+	 * 构造函数。
+	 * */
+	public VoiceRespMessage(){
+		this.setMsgType("voice");
+	}
+	/**
 	 * 获取语音。
 	 * @return 语音。
 	 * */
