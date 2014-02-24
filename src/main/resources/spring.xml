@@ -6,7 +6,7 @@
 	<!--引入参数属性文件 -->
 	<context:property-placeholder location="classpath:config.properties"/>
 	<!--spring-hibernate-->
-	<!-- <import resource="spring-hibernate.xml"/> -->
+	<import resource="spring-hibernate.xml"/>
 	<!--spring-dao -->
 	<import resource="spring-dao.xml"/>
 	<!--spring-service-->
