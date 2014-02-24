@@ -6,8 +6,10 @@ import java.io.Serializable;
 
 /**
  * 客户消息基础抽象类。
+ * @author yangyong.
+ * @since 2014-02-24.
  * */
-public abstract class BaseMessage implements Serializable {
+public abstract class BaseCustomerMessage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private AccessToken token;
 	private String toUser,msgType;
