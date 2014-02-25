@@ -9,7 +9,7 @@ import ipower.micromessage.msg.Voice;
  * */
 public class VoiceRespMessage extends BaseRespMessage {
 	private static final long serialVersionUID = 1L;
-	private Voice voice;
+	private Voice Voice;
 	/**
 	 * 构造函数。
 	 * */
@@ -21,7 +21,7 @@ public class VoiceRespMessage extends BaseRespMessage {
 	 * @return 语音。
 	 * */
 	public Voice getVoice() {
-		return voice;
+		return Voice;
 	}
 	/**
 	 * 设置语音。
@@ -29,6 +29,6 @@ public class VoiceRespMessage extends BaseRespMessage {
 	 * 语音。
 	 * */
 	public void setVoice(Voice voice) {
-		this.voice = voice;
+		this.Voice = voice;
 	}
 }

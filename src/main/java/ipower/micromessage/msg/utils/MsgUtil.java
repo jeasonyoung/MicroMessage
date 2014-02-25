@@ -6,6 +6,8 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -48,10 +50,9 @@ public class MsgUtil {
 			Document document = reader.read(inputStream);
 			//得到xml根元素。
 			Element root = document.getRootElement();
-			if(logger.isDebugEnabled()){
-				logger.debug("接收的xml请求：");
-				logger.debug(root.asXML());
-			}
+			 
+			logger.info("接收的xml请求：\r\n" + root.asXML());
+			
 			//得到根元素的所有子节点。
 			List<Element> elements = root.elements();
 			if(elements != null && elements.size() > 0){
@@ -87,6 +88,12 @@ public class MsgUtil {
 					super.startNode(name, clazz);
 				}
 				protected void writeText(QuickWriter writer, String text){
+					Pattern pattern = Pattern.compile("[0-9]*");
+					Matcher isNum = pattern.matcher(text);
+					if(isNum.matches()){
+						writer.write(text);
+						return;
+					}
 					if(cdata){
 						writer.write("<![CDATA["); 
                         writer.write(text); 

@@ -53,6 +53,7 @@ public class CoreServlet extends HttpServlet {
 			if(SignUtil.checkSignature(signature, this.coreService.token(), timestamp, nonce)){
 				out.print(echostr);
 				logger.info("signature=" + signature + ",timestamp=" + timestamp + ",nonce=" + nonce + ",echostr=" + echostr);
+				logger.info("echostr:" + echostr);
 			}
 		}catch(Exception e){
 			logger.error("发生异常：" + e.getMessage(), e);
@@ -72,12 +73,16 @@ public class CoreServlet extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		try {
 			//调用核心业务服务接收消息、处理消息。
+			logger.info("接收请求，处理中...");
 			String respMsg = this.coreService.processRequest(req);
-			logger.info("响应消息：" + respMsg);
-			//响应消息。
-			PrintWriter out = resp.getWriter();
-			out.print(respMsg);
-			out.close();
+			logger.info("处理完毕！");
+			if(respMsg != null && !respMsg.trim().isEmpty()){
+				logger.info("响应消息：\r\n" + respMsg);
+				//响应消息。
+				PrintWriter out = resp.getWriter();
+				out.print(respMsg);
+				out.close();
+			}
 		} catch (Exception e) {
 			logger.error("处理微信服务器发来的消息时发生异常：", e);
 			e.printStackTrace();

@@ -10,8 +10,8 @@ import java.util.List;
  * */
 public class ArticleRespMessage extends BaseRespMessage {
 	private static final long serialVersionUID = 1L;
-	private Integer articleCount;
-	private List<Article> articles;
+	private Integer ArticleCount;
+	private List<Article> Articles;
 	/**
 	 * 构造函数。
 	 * */
@@ -23,7 +23,7 @@ public class ArticleRespMessage extends BaseRespMessage {
 	 * @return 图文消息个数。
 	 * */
 	public Integer getArticleCount() {
-		return articleCount;
+		return ArticleCount;
 	}
 	/**
 	 * 设置图文消息个数，限制为10条以内。
@@ -31,7 +31,7 @@ public class ArticleRespMessage extends BaseRespMessage {
 	 * 	图文消息个数。
 	 * */
 	public void setArticleCount(Integer articleCount) {
-		this.articleCount = articleCount;
+		this.ArticleCount = articleCount;
 	}
 	/**
 	 * 获取多条图文消息信息，默认第一个item为大图；
@@ -39,7 +39,7 @@ public class ArticleRespMessage extends BaseRespMessage {
 	 * @return 多条图文消息信息。
 	 * */
 	public List<Article> getArticles() {
-		return articles;
+		return Articles;
 	}
 	/**
 	 * 设置多条图文消息信息，默认第一个item为大图；
@@ -48,7 +48,7 @@ public class ArticleRespMessage extends BaseRespMessage {
 	 * 多条图文消息信息。
 	 * */
 	public void setArticles(List<Article> articles) {
-		this.articles = articles;
+		this.Articles = articles;
 	}
 	
 }

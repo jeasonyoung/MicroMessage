@@ -9,7 +9,7 @@ import ipower.micromessage.msg.Image;
  * */
 public class ImageRespMessage extends BaseRespMessage {
 	private static final long serialVersionUID = 1L;
-	private Image image;
+	private Image Image;
 	/**
 	 * 构造函数。
 	 * */
@@ -21,7 +21,7 @@ public class ImageRespMessage extends BaseRespMessage {
 	 * @return 图片信息。
 	 * */
 	public Image getImage() {
-		return image;
+		return Image;
 	}
 	/**
 	 * 设置图片信息。
@@ -29,6 +29,6 @@ public class ImageRespMessage extends BaseRespMessage {
 	 * 	图片信息。
 	 * */
 	public void setImage(Image image) {
-		this.image = image;
+		this.Image = image;
 	}
 }

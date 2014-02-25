@@ -15,6 +15,7 @@ import ipower.micromessage.service.http.ICoreService;
  * 微信核心业务实现。
  * @author yangyong.
  * @since 2014-02-24.
+ * http://blog.csdn.net/lyq8479/article/details/9841371
  * */
 public class CoreServiceImpl implements ICoreService {
 	private static Logger logger = Logger.getLogger(CoreServiceImpl.class);
@@ -40,8 +41,8 @@ public class CoreServiceImpl implements ICoreService {
 	public String processRequest(HttpServletRequest req) {
 		TextRespMessage callback = null;
 		try {
-			Map<String, String> params = MsgUtil.parseXml(req);
 			callback = new TextRespMessage();
+			Map<String, String> params = MsgUtil.parseXml(req);
 			//发送方openid。
 			callback.setToUserName(params.get(REQ_MSG_FromUserName));
 			//公众账号。
@@ -49,20 +50,17 @@ public class CoreServiceImpl implements ICoreService {
 			//消息类型。
 			String msgType = params.get(REQ_MSG_MsgType);
 			logger.info("消息类型：" + msgType);
-			
+			callback.setContent("正在开发测试中...");
 		} catch (Exception e) {
 			logger.error("核心业务发生异常：",e);
 			e.printStackTrace();
+			callback = new TextRespMessage();
+			callback.setContent("服务器发生异常,正在处理中,请稍后...");
+		}finally{
 			if(callback != null){
-				callback.setContent("服务器发生异常,正在处理中,请稍后...");
 				return RespMesssageHelper.respMessageToXml(callback);
 			}
 		}
-		if(callback != null){
-			callback.setContent("服务器正在处理，请稍后...");
-			return RespMesssageHelper.respMessageToXml(callback);
-		}
 		return null;
 	}
-
 }

@@ -9,7 +9,7 @@ import ipower.micromessage.msg.Video;
  * */
 public class VideoRespMessage extends BaseRespMessage {
 	private static final long serialVersionUID = 1L;
-	private Video video;
+	private Video Video;
 	/**
 	 * 构造函数。
 	 * */
@@ -21,7 +21,7 @@ public class VideoRespMessage extends BaseRespMessage {
 	 * @return 视频信息。
 	 * */
 	public Video getVideo() {
-		return video;
+		return Video;
 	}
 	/**
 	 * 设置视频信息。
@@ -29,6 +29,6 @@ public class VideoRespMessage extends BaseRespMessage {
 	 * 	视频信息。
 	 * */
 	public void setVideo(Video video) {
-		this.video = video;
+		this.Video = video;
 	}
 }

@@ -9,7 +9,7 @@ import ipower.micromessage.msg.Music;
  * */
 public class MusicRespMessage extends BaseRespMessage {
 	private static final long serialVersionUID = 1L;
-	private Music music;
+	private Music Music;
 	/**
 	 * 构造函数。
 	 * */
@@ -21,7 +21,7 @@ public class MusicRespMessage extends BaseRespMessage {
 	 * @return 音乐信息。
 	 * */
 	public Music getMusic() {
-		return music;
+		return Music;
 	}
 	/**
 	 * 设置音乐信息。
@@ -29,6 +29,6 @@ public class MusicRespMessage extends BaseRespMessage {
 	 * 	音乐信息。	
 	 * */
 	public void setMusic(Music music) {
-		this.music = music;
+		this.Music = music;
 	}
 }

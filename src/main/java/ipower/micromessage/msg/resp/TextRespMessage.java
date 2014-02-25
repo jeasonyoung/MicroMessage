@@ -6,7 +6,7 @@ package ipower.micromessage.msg.resp;
  * */
 public class TextRespMessage extends BaseRespMessage {
 	private static final long serialVersionUID = 1L;
-	private String content;
+	private String Content;
 	/**
 	 * 构造函数。
 	 * */
@@ -18,7 +18,7 @@ public class TextRespMessage extends BaseRespMessage {
 	 * @return 消息内容。
 	 * */
 	public String getContent() {
-		return content;
+		return Content;
 	}
 	/**
 	 * 设置消息内容。
@@ -26,6 +26,6 @@ public class TextRespMessage extends BaseRespMessage {
 	 * 	消息内容。
 	 * */
 	public void setContent(String content) {
-		this.content = content;
+		this.Content = content;
 	}
 }
