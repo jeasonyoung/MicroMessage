@@ -1,4 +1,4 @@
-package ipower.micromessage.service.https;
+package ipower.micromessage.service.http;
 
 import javax.servlet.http.HttpServletRequest;
 /**

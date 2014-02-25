@@ -1,4 +1,4 @@
-package ipower.micromessage.service.https.impl;
+package ipower.micromessage.service.http.impl;
 
 import java.util.Map;
 
@@ -9,7 +9,7 @@ import org.apache.log4j.Logger;
 import ipower.micromessage.msg.resp.RespMesssageHelper;
 import ipower.micromessage.msg.resp.TextRespMessage;
 import ipower.micromessage.msg.utils.MsgUtil;
-import ipower.micromessage.service.https.ICoreService;
+import ipower.micromessage.service.http.ICoreService;
 
 /**
  * 微信核心业务实现。

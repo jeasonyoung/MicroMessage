@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	
 	<!--微信核心业务服务-->
-	<bean id="coreService" class="ipower.micromessage.service.https.impl.CoreServiceImpl">
+	<bean id="coreService" class="ipower.micromessage.service.http.impl.CoreServiceImpl">
 		<property name="token" value="yaesoft_micro"/>
 	</bean>
 	<!--菜单服务-->

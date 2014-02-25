@@ -1,7 +1,7 @@
 package ipower.micromessage.servlets;
 
 import ipower.micromessage.msg.utils.SignUtil;
-import ipower.micromessage.service.https.ICoreService;
+import ipower.micromessage.service.http.ICoreService;
 
 import java.io.IOException;
 import java.io.PrintWriter;

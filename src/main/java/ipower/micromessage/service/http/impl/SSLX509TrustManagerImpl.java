@@ -1,9 +1,9 @@
-package ipower.micromessage.service.https.impl;
+package ipower.micromessage.service.http.impl;
 
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
-import ipower.micromessage.service.https.ISSLX509TrustManager;
+import ipower.micromessage.service.http.ISSLX509TrustManager;
 
 /**
  * 证书信任管理器实现(信任所有证书)。
