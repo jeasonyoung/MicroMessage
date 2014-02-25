@@ -98,10 +98,10 @@
   	<filter-name>druidWebStatFilter</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
-  <filter-mapping>
+  <!-- <filter-mapping>
   	<filter-name>openSessionInViewFilter</filter-name>
   	<url-pattern>/*</url-pattern>
-  </filter-mapping>
+  </filter-mapping> -->
   <filter-mapping>
   	<filter-name>struts2-prepare</filter-name>
   	<url-pattern>/*</url-pattern>
