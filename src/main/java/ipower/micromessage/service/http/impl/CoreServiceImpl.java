@@ -1,5 +1,6 @@
 package ipower.micromessage.service.http.impl;
 
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,8 +50,12 @@ public class CoreServiceImpl implements ICoreService {
 			callback.setFromUserName(params.get(REQ_MSG_ToUserName));
 			//消息类型。
 			String msgType = params.get(REQ_MSG_MsgType);
+			
 			logger.info("消息类型：" + msgType);
-			callback.setContent("正在开发测试中...");
+			
+			///TODO::消息分类处理
+			
+			callback.setContent("[" + new Date().toString() + "]正在开发测试中... 您的消息类型是：" + msgType);
 		} catch (Exception e) {
 			logger.error("核心业务发生异常：",e);
 			e.printStackTrace();

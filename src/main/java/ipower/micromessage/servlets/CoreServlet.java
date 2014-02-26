@@ -49,11 +49,19 @@ public class CoreServlet extends HttpServlet {
 				echostr = req.getParameter("echostr");//随机字符串
 		PrintWriter out = resp.getWriter();
 		try{
-			// 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败 
-			if(SignUtil.checkSignature(signature, this.coreService.token(), timestamp, nonce)){
+			// 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败
+			String token = this.coreService.token();
+			if(SignUtil.checkSignature(signature, token, timestamp, nonce)){
 				out.print(echostr);
 				logger.info("signature=" + signature + ",timestamp=" + timestamp + ",nonce=" + nonce + ",echostr=" + echostr);
 				logger.info("echostr:" + echostr);
+			}else {
+				logger.info("对微信的校验不成功！");
+				logger.info("令牌:" + token);
+				logger.info("获取微信签名：" + signature);
+				logger.info("获取微信时间戳：" + timestamp);
+				logger.info("获取微信随机数：" + nonce);
+				logger.info("获取微信随机字符串：" + echostr);
 			}
 		}catch(Exception e){
 			logger.error("发生异常：" + e.getMessage(), e);
@@ -68,14 +76,19 @@ public class CoreServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException{
-		//将请求、响应的编码均设置为utf-8(防止中文乱码)
-		req.setCharacterEncoding("UTF-8");
-		resp.setCharacterEncoding("UTF-8");
+		long before = System.currentTimeMillis();
 		try {
+			//将请求、响应的编码均设置为utf-8(防止中文乱码)
+			req.setCharacterEncoding("UTF-8");
+			resp.setCharacterEncoding("UTF-8");
+			
 			//调用核心业务服务接收消息、处理消息。
 			logger.info("接收请求，处理中...");
+			logger.info("接收请求url：" + req.getRequestURI());
+			logger.info("请求源地址：" + req.getRemoteAddr());
+			logger.info("请求主机：" + req.getRemoteHost());
+			
 			String respMsg = this.coreService.processRequest(req);
-			logger.info("处理完毕！");
 			if(respMsg != null && !respMsg.trim().isEmpty()){
 				logger.info("响应消息：\r\n" + respMsg);
 				//响应消息。
@@ -86,6 +99,8 @@ public class CoreServlet extends HttpServlet {
 		} catch (Exception e) {
 			logger.error("处理微信服务器发来的消息时发生异常：", e);
 			e.printStackTrace();
+		}finally{
+			logger.info("处理完毕！[耗时：" + (System.currentTimeMillis() - before) + " ms]");
 		}
 	}
 }

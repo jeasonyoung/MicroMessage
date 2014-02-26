@@ -4,7 +4,7 @@ package ipower.micromessage.msg.req;
  * @author yangyong.
  * @since 2014-02-21.
  * */
-public class LinkMessage extends BaseReqMessage {
+public class LinkReqMessage extends BaseReqMessage {
 	private static final long serialVersionUID = 1L;
 	private String title,description,url;
 	/**

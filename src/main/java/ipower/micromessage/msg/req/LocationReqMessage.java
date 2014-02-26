@@ -4,7 +4,7 @@ package ipower.micromessage.msg.req;
  * @author yangyong.
  * @since 2014-02-21.
  * */
-public class LocationMessage extends BaseReqMessage {
+public class LocationReqMessage extends BaseReqMessage {
 	private static final long serialVersionUID = 1L;
 	private String label, location_X,location_Y;
 	private Integer scale;

@@ -4,7 +4,7 @@ package ipower.micromessage.msg.req;
  * @author yangyong.
  * @since 2014-02-21.
  **/
-public class VoiceMessage extends BaseReqMessage {
+public class VoiceReqMessage extends BaseReqMessage {
 	private static final long serialVersionUID = 1L;
 	private String mediaId,format;
 	/**

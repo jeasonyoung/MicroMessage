@@ -4,7 +4,7 @@ package ipower.micromessage.msg.req;
  * @author yangyong.
  * @since 2014-02-20.
  * */
-public class ImageMessage extends BaseReqMessage {
+public class ImageReqMessage extends BaseReqMessage {
 	private static final long serialVersionUID = 1L;
 	private String picUrl,mediaId;
 	/**
