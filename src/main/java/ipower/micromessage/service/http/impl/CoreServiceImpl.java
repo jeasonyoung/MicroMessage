@@ -11,6 +11,7 @@ import ipower.micromessage.msg.resp.RespMesssageHelper;
 import ipower.micromessage.msg.resp.TextRespMessage;
 import ipower.micromessage.msg.utils.MsgUtil;
 import ipower.micromessage.service.http.ICoreService;
+import ipower.micromessage.service.http.IReceiveHandlerService;
 
 /**
  * 微信核心业务实现。
@@ -24,6 +25,7 @@ public class CoreServiceImpl implements ICoreService {
 								REQ_MSG_ToUserName = "ToUserName",
 								REQ_MSG_MsgType = "MsgType";
 	private String token;
+	private IReceiveHandlerService receiveHandler;
 	/**
 	 * 设置微信令牌。
 	 * @param token
@@ -32,7 +34,15 @@ public class CoreServiceImpl implements ICoreService {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
+	/**
+	 * 设置接收消息处理服务。
+	 * @param receiveHandler
+	 * 	接收消息处理。
+	 * */
+	public void setReceiveHandler(IReceiveHandlerService receiveHandler) {
+		this.receiveHandler = receiveHandler;
+	}
+
 	@Override
 	public String token() {
 		return this.token;
@@ -42,23 +52,24 @@ public class CoreServiceImpl implements ICoreService {
 	public String processRequest(HttpServletRequest req) {
 		TextRespMessage callback = null;
 		try {
-			callback = new TextRespMessage();
 			Map<String, String> params = MsgUtil.parseXml(req);
+			//消息类型。
+			String msgType = params.get(REQ_MSG_MsgType);
+			logger.info("消息类型：" + msgType);
+			
+			//接收消息处理。
+			String out = this.receiveHandler.handler(msgType, params);
+			if(out != null){
+				return out;
+			}
+			callback = new TextRespMessage();
 			//发送方openid。
 			callback.setToUserName(params.get(REQ_MSG_FromUserName));
 			//公众账号。
 			callback.setFromUserName(params.get(REQ_MSG_ToUserName));
-			//消息类型。
-			String msgType = params.get(REQ_MSG_MsgType);
-			
-			logger.info("消息类型：" + msgType);
-			
-			///TODO::消息分类处理
-			
 			callback.setContent("[" + new Date().toString() + "]正在开发测试中... 您的消息类型是：" + msgType);
 		} catch (Exception e) {
 			logger.error("核心业务发生异常：",e);
-			e.printStackTrace();
 			callback = new TextRespMessage();
 			callback.setContent("服务器发生异常,正在处理中,请稍后...");
 		}finally{
