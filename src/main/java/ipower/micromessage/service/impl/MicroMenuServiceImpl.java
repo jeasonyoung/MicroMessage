@@ -1,14 +1,8 @@
 package ipower.micromessage.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.net.ssl.X509TrustManager;
-
 import org.apache.log4j.Logger;
-
 import com.alibaba.fastjson.JSONObject;
-
 import ipower.configuration.ModuleDefine;
 import ipower.configuration.ModuleSystem;
 import ipower.micromessage.menu.Button;
@@ -120,7 +114,7 @@ public class MicroMenuServiceImpl implements IMicroMenuService {
 			logger.error("未配置菜单创建url！");
 			return "未配置菜单创建url";
 		}
-		String data = JSONObject.toJSONString(menu);
+		String data = JSONObject.toJSON(menu).toString();
 		JSONObject result = HttpUtil.httpsRequest(this.x509TrustManager, url, "POST", data);
 		if(result == null){
 			logger.error("服务器未响应！");
@@ -143,39 +137,36 @@ public class MicroMenuServiceImpl implements IMicroMenuService {
 			return null;
 		}
 		ModuleSystem moduleSystem = menuService.loadModuleSystem(currentSystemId);
-		if(moduleSystem == null || moduleSystem.getModules() == null || moduleSystem.getModules().size() == 0){
+		int size = 0;
+		if(moduleSystem == null || moduleSystem.getModules() == null || (size = moduleSystem.getModules().size()) == 0){
 			logger.error("未找到[currentSystemId:"+currentSystemId+"]下的菜单数据！");
 			return null;
 		}
 		Menu menu = new Menu();
-		List<Button> list = new ArrayList<>();
+		Button[] btns = new Button[size > 3 ? 3 :size];
 		for(int i = 0; i < moduleSystem.getModules().size(); i++){
 			if(i >= 3)break;
 			ModuleDefine define = moduleSystem.getModules().item(i);
 			if(define == null)continue;
-			if(define.getModules() == null || define.getModules().size() == 0){
+			int len = 0;
+			if(define.getModules() != null && (len = define.getModules().size()) > 0){
 				ComplexButton btn = new ComplexButton();
 				btn.setName(define.getModuleName());
-				List<Button> childs = new ArrayList<>();
+				Button[] childs = new Button[len > 5 ? 5 : len];
 				for(int j = 0; j < define.getModules().size();j++){
 					if(j >= 5)break;
-					Button cn = this.createButton(define.getModules().item(j));
-					if(cn != null){
-						childs.add(cn);
-					}
+					childs[j] = this.createButton(define.getModules().item(j));
 				}
-				btn.setSub_button((Button[])childs.toArray());
-				list.add(btn);
+				btn.setSub_button(childs);
+				btns[i] = btn;
 			}else {
-				Button btn = this.createButton(define);
-				if(btn != null){
-					list.add(btn);
-				}
+				btns[i] = this.createButton(define);
 			}
 		}
-		menu.setButton((Button[])list.toArray());
+		menu.setButton(btns);
 		return menu;
 	}
+	
 	/**
 	 * 创建微信菜单按钮。
 	 * @param define
@@ -186,22 +177,23 @@ public class MicroMenuServiceImpl implements IMicroMenuService {
 	private Button createButton(ModuleDefine define){
 		if(define == null) return null;
 		logger.info("菜单：" + define.getModuleUri());
-		Button btn = null;
 		String[] types = define.getModuleUri().split("\\|");
 		if(types[0].equalsIgnoreCase("click")){
 			logger.info("创建普通按钮");
-			btn = new CommonButton();
-			((CommonButton)btn).setName(define.getModuleName());
-			((CommonButton)btn).setKey(define.getModuleID());
+			CommonButton btn = new CommonButton();
+			btn.setName(define.getModuleName());
+			btn.setKey(define.getModuleID());
 			logger.info(btn.getClass().getName());
+			return btn;
 		}else if(types[0].equalsIgnoreCase("view")){
 			logger.info("创建网页按钮");
-			btn = new UrlButton();
-			((UrlButton)btn).setName(define.getModuleName());
-			((UrlButton)btn).setUrl(types[1]);
+			UrlButton btn = new UrlButton();
+			btn.setName(define.getModuleName());
+			btn.setUrl(types[1]);
 			logger.info(btn.getClass().getName());
+			return btn;
 		}
-		return btn;
+		return null;
 	}
 	/**
 	 * 查询微信菜单。

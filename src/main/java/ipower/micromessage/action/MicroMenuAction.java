@@ -1,5 +1,7 @@
 package ipower.micromessage.action;
 
+import java.io.IOException;
+
 import ipower.micromessage.service.IMicroMenuService;
 
 public class MicroMenuAction extends BaseAction {
@@ -15,22 +17,28 @@ public class MicroMenuAction extends BaseAction {
 	/**
 	 * 创建菜单。
 	 * @return 返回结果。
+	 * @throws IOException 
 	 * */
-	public String create(){
-		return this.microMenuService.create();
+	public void create() throws IOException{
+		String result = this.microMenuService.create();
+		this.writeJson(result);
 	}
 	/**
 	 * 查询菜单。
 	 * @return 返回结果。
+	 * @throws IOException 
 	 * */
-	public String query(){
-		return this.microMenuService.query();
+	public void query() throws IOException{
+		String result = this.microMenuService.query();
+		this.writeJson(result);
 	}
 	/**
 	 * 删除菜单。
 	 * @return 返回结果。
+	 * @throws IOException 
 	 * */
-	public String delete(){
-		return this.microMenuService.delete();
+	public void delete() throws IOException{
+		String result = this.microMenuService.delete();
+		this.writeJson(result);
 	}
 }

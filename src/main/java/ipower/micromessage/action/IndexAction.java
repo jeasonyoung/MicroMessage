@@ -40,6 +40,14 @@ public class IndexAction extends BaseAction {
 		return systemName;
 	}
 	/**
+	 * 设置系统名称(未启用)。
+	 * @param systemName
+	 * 	系统名称。
+	 * */
+	public void setSystemName(String systemName){
+		
+	}
+	/**
 	 * 默认输出。
 	 * */
 	@Override

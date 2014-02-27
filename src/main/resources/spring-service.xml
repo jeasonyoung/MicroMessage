@@ -13,32 +13,54 @@
 		<property name="handlers">
 			<map>
 				<!--1.文本消息 -->
-				<entry key="text" ref="defaultMsgHandler"/>
+				<entry key="text">
+					<ref local="defaultMsgHandler"/>
+				</entry>
 				<!--2.图片消息 -->
-				<entry key="image" ref="defaultMsgHandler"/>
+				<entry key="image">
+					<ref local="defaultMsgHandler"/>
+				</entry>
 				<!--3.语音消息 -->
-				<entry key="voice" ref="defaultMsgHandler"/>
+				<entry key="voice">
+					<ref local="defaultMsgHandler"/>
+				</entry>
 				<!--4.视频消息 -->
-				<entry key="video" ref="defaultMsgHandler"/>
+				<entry key="video">
+					<ref local="defaultMsgHandler"/>
+				</entry>
 				<!--5.地理位置消息 -->
-				<entry key="location" ref="defaultMsgHandler"/>
+				<entry key="location">
+					<ref local="defaultMsgHandler"/>
+				</entry>
 				<!--6.链接消息 -->
-				<entry key="link" ref="defaultMsgHandler"/>
+				<entry key="link">
+					<ref local="defaultMsgHandler"/>
+				</entry>
 			</map>
 		</property>
 		<!--事件消息处理 -->
 		<property name="eventHandlers">
 			<map>
 				<!--1.关注事件 -->
-				<entry key="subscribe" ref="defaultEventMsgHandler"/>
+				<entry key="subscribe">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
 				<!--2.取消关注事件 -->
-				<entry key="unsubscribe" ref="defaultEventMsgHandler"/>
+				<entry key="unsubscribe">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
 				<!--3.扫描事件 -->
-				<entry key="SCAN" ref="defaultEventMsgHandler"/>
+				<entry key="SCAN">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
 				<!--4.上报地理位置事件 -->
-				<entry key="LOCATION" ref="defaultEventMsgHandler"/>
+				<entry key="LOCATION">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
 				<!--5.自定义菜单事件 -->
-				<entry key="CLICK" ref="defaultEventMsgHandler"/>
+				<entry key="CLICK">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
 			</map>
 		</property>
 	</bean>
