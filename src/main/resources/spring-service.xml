@@ -9,7 +9,38 @@
 	</bean>
 	<!--请求消息处理 -->
 	<bean id="receiveHandlerService" class="ipower.micromessage.service.http.impl.ReceiveHandlerServiceImpl">
-		
+		<!--消息处理 -->
+		<property name="handlers">
+			<map>
+				<!--1.文本消息 -->
+				<entry key="text" ref=""/>
+				<!--2.图片消息 -->
+				<entry key="image" ref=""/>
+				<!--3.语音消息 -->
+				<entry key="voice" ref=""/>
+				<!--4.视频消息 -->
+				<entry key="video" ref=""/>
+				<!--5.地理位置消息 -->
+				<entry key="location" ref=""/>
+				<!--6.链接消息 -->
+				<entry key="link" ref=""/>
+			</map>
+		</property>
+		<!--事件消息处理 -->
+		<property name="eventHandlers">
+			<map>
+				<!--1.关注事件 -->
+				<entry key="subscribe" ref=""/>
+				<!--2.取消关注事件 -->
+				<entry key="unsubscribe" ref=""/>
+				<!--3.扫描事件 -->
+				<entry key="SCAN" ref=""/>
+				<!--4.上报地理位置事件 -->
+				<entry key="LOCATION" ref=""/>
+				<!--5.自定义菜单事件 -->
+				<entry key="CLICK" ref=""/>
+			</map>
+		</property>
 	</bean>
 	<!--https证书 -->
 	<bean id="SSLX509TrustManager" class="ipower.micromessage.service.http.impl.SSLX509TrustManagerImpl"/>

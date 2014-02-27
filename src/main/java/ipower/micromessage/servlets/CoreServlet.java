@@ -89,13 +89,13 @@ public class CoreServlet extends HttpServlet {
 			logger.info("请求主机：" + req.getRemoteHost());
 			
 			String respMsg = this.coreService.processRequest(req);
-			if(respMsg != null && !respMsg.trim().isEmpty()){
-				logger.info("响应消息：\r\n" + respMsg);
-				//响应消息。
-				PrintWriter out = resp.getWriter();
-				out.print(respMsg);
-				out.close();
-			}
+			logger.info("响应消息：\r\n" + respMsg);
+			if(respMsg == null) respMsg = "";
+			
+			PrintWriter out = resp.getWriter();
+			out.print(respMsg);
+			out.close();
+			 
 		} catch (Exception e) {
 			logger.error("处理微信服务器发来的消息时发生异常：", e);
 			e.printStackTrace();
