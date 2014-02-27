@@ -13,35 +13,40 @@
 		<property name="handlers">
 			<map>
 				<!--1.文本消息 -->
-				<entry key="text" ref=""/>
+				<entry key="text" ref="defaultMsgHandler"/>
 				<!--2.图片消息 -->
-				<entry key="image" ref=""/>
+				<entry key="image" ref="defaultMsgHandler"/>
 				<!--3.语音消息 -->
-				<entry key="voice" ref=""/>
+				<entry key="voice" ref="defaultMsgHandler"/>
 				<!--4.视频消息 -->
-				<entry key="video" ref=""/>
+				<entry key="video" ref="defaultMsgHandler"/>
 				<!--5.地理位置消息 -->
-				<entry key="location" ref=""/>
+				<entry key="location" ref="defaultMsgHandler"/>
 				<!--6.链接消息 -->
-				<entry key="link" ref=""/>
+				<entry key="link" ref="defaultMsgHandler"/>
 			</map>
 		</property>
 		<!--事件消息处理 -->
 		<property name="eventHandlers">
 			<map>
 				<!--1.关注事件 -->
-				<entry key="subscribe" ref=""/>
+				<entry key="subscribe" ref="defaultEventMsgHandler"/>
 				<!--2.取消关注事件 -->
-				<entry key="unsubscribe" ref=""/>
+				<entry key="unsubscribe" ref="defaultEventMsgHandler"/>
 				<!--3.扫描事件 -->
-				<entry key="SCAN" ref=""/>
+				<entry key="SCAN" ref="defaultEventMsgHandler"/>
 				<!--4.上报地理位置事件 -->
-				<entry key="LOCATION" ref=""/>
+				<entry key="LOCATION" ref="defaultEventMsgHandler"/>
 				<!--5.自定义菜单事件 -->
-				<entry key="CLICK" ref=""/>
+				<entry key="CLICK" ref="defaultEventMsgHandler"/>
 			</map>
 		</property>
 	</bean>
+	<!--默认消息处理 -->
+	<bean id="defaultMsgHandler" class="ipower.micromessage.service.http.impl.DefaultMessageHandlerImpl"/>
+	<!--默认事件消息处理 -->
+	<bean id="defaultEventMsgHandler" class="ipower.micromessage.service.http.impl.DefaultEventMessageHandlerImpl"/>
+	
 	<!--https证书 -->
 	<bean id="SSLX509TrustManager" class="ipower.micromessage.service.http.impl.SSLX509TrustManagerImpl"/>
 	<!--全局唯一票据 -->
