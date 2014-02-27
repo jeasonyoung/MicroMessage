@@ -1,17 +1,17 @@
 package ipower.micromessage.menu;
 /**
- * 普通按钮(子按钮)。
+ * Url按钮。
  * @author yangyong.
- * @since 2014-02-25.
+ * @since 2014-02-27.
  * */
-public class CommonButton extends Button {
+public class UrlButton extends Button {
 	private static final long serialVersionUID = 1L;
-	private String type,key;
+	private String type,url;
 	/**
 	 * 构造函数。
 	 * */
-	public CommonButton(){
-		this.type = "click";
+	public UrlButton(){
+		this.setType("view");
 	}
 	/**
 	 * 获取按钮类型。
@@ -29,18 +29,17 @@ public class CommonButton extends Button {
 		this.type = type;
 	}
 	/**
-	 * 获取按钮键值。
-	 * @return 按钮键值。
+	 * 获取Url。
+	 * @return url。
 	 * */
-	public String getKey() {
-		return key;
+	public String getUrl() {
+		return url;
 	}
 	/**
-	 * 设置按钮键值。
-	 * @param key
-	 * 	按钮键值。
+	 * 设置Url
+	 * @param url
 	 * */
-	public void setKey(String key) {
-		this.key = key;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 }

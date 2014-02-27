@@ -4,7 +4,7 @@
 	
 	<!--微信核心业务服务-->
 	<bean id="coreService" class="ipower.micromessage.service.http.impl.CoreServiceImpl">
-		<property name="token" value="yaesoft_micro"/>
+		<property name="token" value="${micro_local_token}"/>
 		<property name="receiveHandler" ref="receiveHandlerService"/>
 	</bean>
 	<!--请求消息处理 -->
@@ -48,18 +48,28 @@
 	<bean id="defaultEventMsgHandler" class="ipower.micromessage.service.http.impl.DefaultEventMessageHandlerImpl"/>
 	
 	<!--https证书 -->
-	<bean id="SSLX509TrustManager" class="ipower.micromessage.service.http.impl.SSLX509TrustManagerImpl"/>
+	<bean id="sslX509TrustManager" class="ipower.micromessage.service.http.impl.SSLX509TrustManagerImpl"/>
 	<!--全局唯一票据 -->
 	<bean id="accessTokenService" class="ipower.micromessage.service.http.impl.AccessTokenServiceImpl">
-		<property name="x509TrustManager" ref="SSLX509TrustManager"/>
-		<property name="url">https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%1$s&secret=%2$s</property>
-		<property name="appId" value="wx111b8e528b228a2d"/>
-		<property name="secret" value="11bf889f7f68ec09f11267f68b4a9804"/>
+		<property name="x509TrustManager" ref="sslX509TrustManager"/>
+		<property name="url" value="${micro_access_token_url}"/>
+		<property name="appId" value="${micro_appId}"/>
+		<property name="secret" value="${micro_appsecret}"/>
 	</bean>
 	
 	<!--菜单服务-->
-	<bean id="MenuService" class="ipower.micromessage.service.impl.MenuServiceImpl"> 
-		<property name="menuFile" value="main_menus.xml"/>
+	<bean id="menuService" class="ipower.micromessage.service.impl.MenuServiceImpl"> 
+		<property name="menuFile" value="${menuFile}"/>
 	</bean>
-	
+	<!--微信菜单服务 -->
+	<bean id="microMenuService" class="ipower.micromessage.service.impl.MicroMenuServiceImpl">
+		<property name="x509TrustManager" ref="sslX509TrustManager"/>
+		<property name="accessTokenService" ref="accessTokenService"/>
+		<property name="menuService" ref="menuService"/>
+		<property name="currentSystemId" value="${micro_current_systemId}"/>
+		<property name="createUrl" value="${micro_menu_createUrl}"/>
+		<property name="queryUrl" value="${micro_menu_queryUrl}"/>
+		<property name="deleteUrl" value="${micro_menu_deleteUrl}"/>
+	</bean>
+		
 </beans>

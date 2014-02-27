@@ -3,6 +3,24 @@
   <system id="MMSS000000000000000000000000000" sign="ipower.micromessage" name="微信公众账号管理系统" description="微信后台管理">
   	<module id="MMSS000000000000000000000000001" name="接入管理" uri="" order="1">
   		<module id="MMSS000000000000000000000000101" name="公众账号设置" uri="" order="1"/>
+  		<module id="MMSS000000000000000000000000201" name="菜单管理" uri="/settings/micromenu.action" order="1"/>
+  	</module>
+  </system>
+  
+  <system id="MicroMainMenu_000" sign="ipower.micromessage.menus" name="微信公众账号菜单" description="微信菜单">
+  	<module id="MMM0100" name="校园动态" uri="" order="1">
+  		<module id="MMM0101" name="学校通知" uri="click" order="1"/>
+  		<module id="MMM0102" name="我的校园" uri="view|www.baidu.com" order="2"/>
+  	</module>
+  	<module id="MMM0200" name="我" uri="" order="2">
+  		<module id="MMM0201" name="待办待阅" uri="click" order="1"/>
+  		<module id="MMM0202" name="我的工资" uri="click" order="2"/>
+  		<module id="MMM0203" name="我的报修" uri="click" order="3"/>
+  		<module id="MMM0204" name="我的课表" uri="click" order="4"/>
+  	</module>
+  	<module id="MMM0300" name="帐号管理" uri="" order="3">
+  		<module id="MMM0301" name="修改手机号" uri="click" order="1"/>
+  		<module id="MMM0302" name="通讯录" uri="click" order="2"/>
   	</module>
   </system>
 </ipower>

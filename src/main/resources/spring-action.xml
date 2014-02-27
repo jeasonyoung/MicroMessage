@@ -2,15 +2,19 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	<!--首页 -->
-	<bean name="IndexAction" class="ipower.micromessage.action.IndexAction">
-		<property name="menuService" ref="MenuService"/>
+	<bean name="indexAction" class="ipower.micromessage.action.IndexAction">
+		<property name="menuService" ref="menuService"/>
 		<property name="systemId" value="${current_systemId}"/>
 	</bean>
 	<!--菜单-->
-	<bean name="MenuAction" class="ipower.micromessage.action.MenuAction">
-		<property name="menuService" ref="MenuService"/>
+	<bean name="menuAction" class="ipower.micromessage.action.MenuAction">
+		<property name="menuService" ref="menuService"/>
 		<property name="systemId" value="${current_systemId}"/>
 	</bean>
+	<!--微信菜单-->
+	<bean name="microMenuAction" class="ipower.micromessage.action.MicroMenuAction">
+		<property name="microMenuService" ref="microMenuService"/>	
+	</bean>
 	<!--druid -->
-	<bean name="DruidAction" class="ipower.micromessage.action.DataSourceAction"/>
+	<bean name="druidAction" class="ipower.micromessage.action.DataSourceAction"/>
 </beans>

@@ -40,6 +40,10 @@ public final class HttpUtil {
 	public static JSONObject httpsRequest(X509TrustManager mgr, String requestUrl,String requestMethod, String data){
 		JSONObject jsonObject = null;
 		try {
+			logger.info("url:\r\n"+ requestUrl);
+			logger.info("method:\r\n" + requestMethod);
+			logger.info("data:\r\n"+ data);
+			
 			//创建SSLContext对象，并使用我们指定的信任管理器初始化
 			TrustManager[] tm = {mgr};
 			SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
@@ -59,9 +63,6 @@ public final class HttpUtil {
 			}
 			//当有数据需要提交时
 			if(data != null && !data.trim().isEmpty()){
-				if(logger.isDebugEnabled()){
-					logger.debug("提交数据：" + data);
-				}
 				OutputStream outputStream = connection.getOutputStream();
 				//注意编码格式，防止中文乱码
 				outputStream.write(data.getBytes("UTF-8"));
@@ -83,9 +84,9 @@ public final class HttpUtil {
 			inputStream.close();
 			inputStream = null;
 			connection.disconnect();
-			if(logger.isDebugEnabled()){
-				logger.debug("反馈数据：" + buffer.toString());
-			}
+			 
+			logger.info("callback:\r\n" + buffer.toString());
+			 
 			jsonObject = JSONObject.parseObject(buffer.toString());
 		}catch(ConnectException e){
 			logger.error("连接服务器["+ requestUrl +"]异常：", e);
