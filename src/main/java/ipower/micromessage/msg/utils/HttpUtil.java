@@ -1,7 +1,5 @@
 package ipower.micromessage.msg.utils;
 
-import ipower.micromessage.msg.AccessToken;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -95,29 +93,5 @@ public final class HttpUtil {
 			logger.error("https请求异常：",e);
 		}
 		return jsonObject;
-	}
-	/**
-	 * 获取access_token
-	 * @param mgr
-	 * @param url
-	 * @return
-	 * */
-	public static AccessToken getAccessToken(X509TrustManager mgr,String url){
-		AccessToken token = null;
-		if(url != null && !url.trim().isEmpty()){
-			JSONObject jsonObject = httpsRequest(mgr, url, "GET", null);
-			//如果请求成功
-			if(jsonObject != null){
-				try{
-					token = new AccessToken();
-					token.setToken(jsonObject.getString("access_token"));
-					token.setExpiresIn(jsonObject.getInteger("expires_in"));
-				}catch(Exception e){
-					token = null;
-					logger.error("获取token失败  errcode:" + jsonObject.getInteger("errcode") + " errmsg:" +  jsonObject.getString("errmsg"));
-				}
-			}
-		}
-		return token;
 	}
 }

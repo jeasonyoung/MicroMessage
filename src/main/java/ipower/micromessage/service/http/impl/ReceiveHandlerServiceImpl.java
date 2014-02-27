@@ -149,5 +149,4 @@ public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 		}
 		return null;
 	}
-
 }

@@ -11,6 +11,15 @@
 	<bean id="receiveHandlerService" class="ipower.micromessage.service.http.impl.ReceiveHandlerServiceImpl">
 		
 	</bean>
+	<!--https证书 -->
+	<bean id="SSLX509TrustManager" class="ipower.micromessage.service.http.impl.SSLX509TrustManagerImpl"/>
+	<!--全局唯一票据 -->
+	<bean id="accessTokenService" class="ipower.micromessage.service.http.impl.AccessTokenServiceImpl">
+		<property name="x509TrustManager" ref="SSLX509TrustManager"/>
+		<property name="url">https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%1$s&secret=%2$s</property>
+		<property name="appId" value="wx111b8e528b228a2d"/>
+		<property name="secret" value="11bf889f7f68ec09f11267f68b4a9804"/>
+	</bean>
 	
 	<!--菜单服务-->
 	<bean id="MenuService" class="ipower.micromessage.service.impl.MenuServiceImpl"> 
