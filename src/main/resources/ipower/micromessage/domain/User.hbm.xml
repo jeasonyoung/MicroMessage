@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ipower.micromessage.domain">
+	<!--用户 -->
+	<class name="User" table="tbl_weixin_user">
+		<!--用户Id -->
+		<id name="id" type="string" length="64"/>
+		<!--用户账号 -->
+		<property name="account" type="string" not-null="true" unique="true" length="32"/>
+		<!--用户微信Id -->
+		<property name="openId" type="string" not-null="true" unique="true" length="32"/>
+		<!--用户状态(1-关注,2-取消关注) -->
+		<property name="status" type="integer"/>
+		<!--用户创建时间（首次关注时间） -->
+		<property name="createTime" type="date"/>
+		<!--用户最后交互时间 -->
+		<property name="lastTime" type="date"/>
+	</class>
+</hibernate-mapping>

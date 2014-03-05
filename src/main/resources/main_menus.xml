@@ -12,15 +12,19 @@
   		<module id="MMM0101" name="学校通知" uri="click" order="1"/>
   		<module id="MMM0102" name="我的校园" uri="view|www.baidu.com" order="2"/>
   	</module>
-  	<module id="MMM0200" name="我" uri="" order="2">
+  	<module id="MMM0200" name="我是老师" uri="" order="2">
   		<module id="MMM0201" name="待办待阅" uri="click" order="1"/>
   		<module id="MMM0202" name="我的工资" uri="click" order="2"/>
   		<module id="MMM0203" name="我的报修" uri="click" order="3"/>
   		<module id="MMM0204" name="我的课表" uri="click" order="4"/>
+  		<module id="MMM0205" name="通讯录" uri="click" order="5"/>
   	</module>
-  	<module id="MMM0300" name="帐号管理" uri="" order="3">
-  		<module id="MMM0301" name="修改手机号" uri="click" order="1"/>
-  		<module id="MMM0302" name="通讯录" uri="click" order="2"/>
+  	<module id="MMM0300" name="我是家长" uri="" order="3">
+  		<module id="MMM0301" name="我的考试" uri="click" order="1"/>
+  		<module id="MMM0302" name="我的课表" uri="click" order="2"/>
+  		<module id="MMM0303" name="我的老师" uri="click" order="3"/>
+  		<module id="MMM0304" name="我的成绩" uri="click" order="4"/>
+  		<module id="MMM0305" name="我的报告" uri="click" order="5"/>
   	</module>
   </system>
 </ipower>
