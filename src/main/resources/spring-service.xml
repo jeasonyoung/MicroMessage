@@ -93,5 +93,8 @@
 		<property name="queryUrl" value="${micro_menu_queryUrl}"/>
 		<property name="deleteUrl" value="${micro_menu_deleteUrl}"/>
 	</bean>
-		
+	<!--用户服务 -->
+	<bean id="userService" class="ipower.micromessage.service.impl.UserServiceImpl">
+		<property name="userDao" ref="userDao"/>
+	</bean>
 </beans>
