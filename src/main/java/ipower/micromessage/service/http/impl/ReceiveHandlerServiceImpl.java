@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import ipower.micromessage.msg.BaseMessage;
+import ipower.micromessage.msg.MicroContext;
 import ipower.micromessage.msg.events.ClickEventMessage;
 import ipower.micromessage.msg.events.EventMessage;
 import ipower.micromessage.msg.events.EventMessageHelper;
@@ -59,42 +60,42 @@ public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 		//消息解析
 		switch(msgType){
 			//事件消息
-		  	case ReqMessageHelper.REQ_MESSAGE_TYPE_EVENT:{
+		  	case MicroContext.REQ_MESSAGE_TYPE_EVENT:{
 		  		logger.info("解析为事件消息.");
 		  		return this.eventHandler(body);
 		  	}
 			//文本消息
-			case ReqMessageHelper.REQ_MESSAGE_TYPE_TEXT:{
+			case MicroContext.REQ_MESSAGE_TYPE_TEXT:{
 				TextReqMessage reqMsg = ReqMessageHelper.parseTextReqMessage(body);
 				logger.info("解析为文本消息:" + reqMsg.getClass().getName());
 				return this.handlersFactory(msgType, reqMsg);
 			}
 			//图片消息
-			case ReqMessageHelper.REQ_MESSAGE_TYPE_IMAGE:{
+			case MicroContext.REQ_MESSAGE_TYPE_IMAGE:{
 				ImageReqMessage reqMsg = ReqMessageHelper.parseImageReqMessage(body);
 				logger.info("解析为图片消息:" + reqMsg.getClass().getName());
 				return this.handlersFactory(msgType, reqMsg);
 			}
 			//语音消息
-			case ReqMessageHelper.REQ_MESSAGE_TYPE_VOICE:{
+			case MicroContext.REQ_MESSAGE_TYPE_VOICE:{
 				VoiceReqMessage reqMsg = ReqMessageHelper.parseVoiceReqMessage(body);
 				logger.info("解析为语音消息:" + reqMsg.getClass().getName());
 				return this.handlersFactory(msgType, reqMsg);
 			}
 			//视频消息
-			case ReqMessageHelper.REQ_MESSAGE_TYPE_VIDEO:{
+			case MicroContext.REQ_MESSAGE_TYPE_VIDEO:{
 				VideoReqMessage reqMsg = ReqMessageHelper.parseVideoReqMessage(body);
 				logger.info("解析为视频消息:" + reqMsg.getClass().getName());
 				return this.handlersFactory(msgType, reqMsg);
 			}
 			//地理位置消息
-			case ReqMessageHelper.REQ_MESSAGE_TYPE_LOCATION:{
+			case MicroContext.REQ_MESSAGE_TYPE_LOCATION:{
 				LocationReqMessage reqMsg = ReqMessageHelper.parseLocationReqMessage(body);
 				logger.info("解析为地理位置消息:" + reqMsg.getClass().getName());
 				return this.handlersFactory(msgType, reqMsg);
 			}
 			//链接消息
-			case ReqMessageHelper.REQ_MESSAGE_TYPE_LINK:{
+			case MicroContext.REQ_MESSAGE_TYPE_LINK:{
 				LinkReqMessage reqMsg = ReqMessageHelper.parseLinkReqMessage(body);
 				logger.info("解析为链接消息:" + reqMsg.getClass().getName());
 				return this.handlersFactory(msgType, reqMsg);
@@ -123,31 +124,31 @@ public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 		//事件解析
 		switch(event){
 			//关注事件
-			case EventMessageHelper.EVENT_MESSAGE_TYPE_SUBSCRIBE:{
+			case MicroContext.EVENT_MESSAGE_TYPE_SUBSCRIBE:{
 				SubscribeEventMessage reqEvent = EventMessageHelper.parseSubscribeEventMessage(body);
 				logger.info("解析为关注事件:" + reqEvent.getClass().getName());
 				return this.eventHandlersFactory(event, reqEvent);
 			}
 			//取消关注事件
-			case EventMessageHelper.EVENT_MESSAGE_TYPE_UNSUBSCRIBE:{
+			case MicroContext.EVENT_MESSAGE_TYPE_UNSUBSCRIBE:{
 				EventMessage reqEvent = EventMessageHelper.parseEventMessage(body);
 				logger.info("解析为取消关注事件:" + reqEvent.getClass().getName());
 				return this.eventHandlersFactory(event, reqEvent);
 			}
 			//扫描事件
-			case EventMessageHelper.EVENT_MESSAGE_TYPE_SCAN:{
+			case MicroContext.EVENT_MESSAGE_TYPE_SCAN:{
 				ScanEventMessage reqEvent = EventMessageHelper.parseScanEventMessage(body);
 				logger.info("解析为扫描事件:" + reqEvent.getClass().getName());
 				return this.eventHandlersFactory(event, reqEvent);
 			}
 			//上报地理位置事件
-			case EventMessageHelper.EVENT_MESSAGE_TYPE_LOCATION:{
+			case MicroContext.EVENT_MESSAGE_TYPE_LOCATION:{
 				LocationEventMessage reqEvent = EventMessageHelper.parseLocationEventMessage(body);
 				logger.info("解析为上报地理位置事件:" + reqEvent.getClass().getName());
 				return this.eventHandlersFactory(event, reqEvent);
 			}
 			//自定义菜单点击事件
-			case EventMessageHelper.EVENT_MESSAGE_TYPE_CLICK:{
+			case MicroContext.EVENT_MESSAGE_TYPE_CLICK:{
 				ClickEventMessage reqEvent = EventMessageHelper.parseClickEventMessage(body);
 				logger.info("解析为自定义菜单点击事件:" + reqEvent.getClass().getName());
 				return this.eventHandlersFactory(event, reqEvent);

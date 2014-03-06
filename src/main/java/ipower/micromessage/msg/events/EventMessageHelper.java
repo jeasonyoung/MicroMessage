@@ -8,26 +8,6 @@ import java.util.Map;
  * */
 public final class EventMessageHelper {
 	/**
-	 * 关注事件消息。
-	 * */
-	public static final String EVENT_MESSAGE_TYPE_SUBSCRIBE = "subscribe";
-	/**
-	 * 取消关注事件消息。
-	 * */
-	public static final String EVENT_MESSAGE_TYPE_UNSUBSCRIBE = "unsubscribe";
-	/**
-	 * 扫描事件消息。
-	 * */
-	public static final String EVENT_MESSAGE_TYPE_SCAN = "SCAN";
-	/**
-	 * 上报地理位置事件消息。
-	 * */
-	public static final String EVENT_MESSAGE_TYPE_LOCATION = "LOCATION";
-	/**
-	 * 自定义菜单事件消息。
-	 * */
-	public static final String EVENT_MESSAGE_TYPE_CLICK = "CLICK";
-	/**
 	 * 将请求事件消息解析成对象。
 	 * @param event
 	 *  事件消息基类。

@@ -6,36 +6,7 @@ import java.util.Map;
  * @author yangyong.
  * @since 2014-02-26.
  * */
-public final class ReqMessageHelper {
-	/**
-	 * 事件消息请求。
-	 * */
-	public static final String REQ_MESSAGE_TYPE_EVENT = "event";
-	/**
-	 * 文本消息请求。
-	 * */
-	public static final String REQ_MESSAGE_TYPE_TEXT = "text";
-	/**
-	 * 图片消息请求。
-	 * */
-	public static final String REQ_MESSAGE_TYPE_IMAGE = "image";
-	/**
-	 * 语音消息请求。
-	 * */
-	public static final String REQ_MESSAGE_TYPE_VOICE = "voice";
-	/**
-	 * 视频消息请求。
-	 * */
-	public static final String REQ_MESSAGE_TYPE_VIDEO = "video";
-	/**
-	 * 地理位置信息请求。
-	 * */
-	public static final String REQ_MESSAGE_TYPE_LOCATION = "location";
-	/**
-	 * 链接消息请求。
-	 * */
-	public static final String REQ_MESSAGE_TYPE_LINK = "link";
-	
+public final class ReqMessageHelper {	
 	/**
 	 * 将请求消息解析成对象。
 	 * @param req
