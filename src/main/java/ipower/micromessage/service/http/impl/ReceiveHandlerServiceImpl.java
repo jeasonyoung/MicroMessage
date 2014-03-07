@@ -22,6 +22,7 @@ import ipower.micromessage.msg.req.VideoReqMessage;
 import ipower.micromessage.msg.req.VoiceReqMessage;
 import ipower.micromessage.msg.resp.BaseRespMessage;
 import ipower.micromessage.msg.resp.RespMesssageHelper;
+import ipower.micromessage.service.http.IAuthenticationService;
 import ipower.micromessage.service.http.IMessageHandler;
 import ipower.micromessage.service.http.IMessgeContextService;
 import ipower.micromessage.service.http.IReceiveHandlerService;
@@ -34,6 +35,7 @@ import ipower.micromessage.service.http.IReceiveHandlerService;
 public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 	private static Logger logger = Logger.getLogger(ReceiveHandlerServiceImpl.class);
 	private IMessgeContextService contextService;
+	private IAuthenticationService authenticationService;
 	private Map<String, IMessageHandler> handlers,eventHandlers;
 	/**
 	 * 设置上下文服务。
@@ -43,6 +45,15 @@ public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 	@Override
 	public void setContextService(IMessgeContextService contextService) {
 		this.contextService = contextService;
+	}
+	/**
+	 * 设置鉴权服务。
+	 * @param authenticationService
+	 * 	鉴权服务。
+	 * */
+	@Override
+	public void setAuthenticationService(IAuthenticationService authenticationService) {
+		this.authenticationService = authenticationService;
 	}
 	/**
 	 * 设置消息处理集合。
@@ -213,18 +224,25 @@ public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 	 * 	处理结果。
 	 * */
 	private synchronized String handlersFactory(Map<String, IMessageHandler> map,String type, BaseMessage msg){		
-		IMessageHandler msgHandler = map.get(type);
-		if(msgHandler == null){
-			logger.error("未配置消息处理：type:"+ type);
-			return null;
-		}
+		BaseRespMessage resp = null;
 		MicroContext context = this.loadContext(msg);
+		//上下文中没有用户信息，进行鉴权。
 		if(context.getUserId() == null|| context.getUserId().trim().isEmpty()){
-			///TODO:鉴权
+			//鉴权，如果用户曾经关注，则在上下文中加载用户ID并返回null，否则进行用户登录提示;
+			resp = this.authenticationService.authen(context);
 		}
-		BaseRespMessage resp = msgHandler.handler(context);
+		//鉴权成功。
 		if(resp == null){
-			logger.error("反馈为null[type:"+ type + ","+ msgHandler.getClass().getName() +"]");
+			IMessageHandler msgHandler = map.get(type);
+			if(msgHandler == null){
+				logger.error("未配置消息处理：type:"+ type);
+				return null;
+			}
+			resp = msgHandler.handler(context);
+		}
+		//没有回复信息处理。
+		if(resp == null){
+			logger.error("反馈为null[type:"+ type + "]");
 			return null;
 		}
 		//添加回复到上下文。

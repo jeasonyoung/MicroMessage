@@ -1,23 +1,11 @@
 package ipower.micromessage.msg.utils;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.ConnectException;
-import java.net.URL;
-import java.security.SecureRandom;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSONObject;
-
 /**
  * HTTP访问工具类。
  * @author yangyong.
@@ -37,57 +25,47 @@ public final class HttpUtil {
 	 *  提交数据。
 	 *  @return 反馈结果(通过JSONObject.get(key)的方式获取json对象的属性值)。
 	 * */
-	public static JSONObject httpsRequest(X509TrustManager mgr, String requestUrl,String requestMethod, String data){
+	public static JSONObject httpsRequest(X509TrustManager mgr, String requestUrl, String requestMethod, String data){
 		JSONObject jsonObject = null;
 		try {
 			logger.info("url:\r\n"+ requestUrl);
 			logger.info("method:\r\n" + requestMethod);
 			logger.info("data:\r\n"+ data);
 			
-			//创建SSLContext对象，并使用我们指定的信任管理器初始化
-			TrustManager[] tm = {mgr};
-			SSLContext sslContext = SSLContext.getInstance("SSL", "SunJSSE");
-			sslContext.init(null, tm, new SecureRandom());
-			//从上述SSLContext对象中得到SSLSocketFactory对象。
-			SSLSocketFactory ssf = sslContext.getSocketFactory();
-			
-			URL url = new URL(requestUrl);
-			HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
-			connection.setSSLSocketFactory(ssf);
-			connection.setDoOutput(true);
-			connection.setDoInput(true);
-			//设置请求方式(GET/POST)
-			connection.setRequestMethod(requestMethod);
-			if(requestMethod.equalsIgnoreCase("GET")){
-				connection.connect();
-			}
-			//当有数据需要提交时
-			if(data != null && !data.trim().isEmpty()){
-				OutputStream outputStream = connection.getOutputStream();
-				//注意编码格式，防止中文乱码
-				outputStream.write(data.getBytes("UTF-8"));
-				outputStream.close();
-			}
-			//将返回的输入流转换成字符串
-			InputStream inputStream = connection.getInputStream();
-			InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-			
-			StringBuffer buffer = new StringBuffer();
-			String out = null;
-			while((out = bufferedReader.readLine()) != null){
-				buffer.append(out);
-			}
-			//释放资源
-			bufferedReader.close();
-			inputStreamReader.close();
-			inputStream.close();
-			inputStream = null;
-			connection.disconnect();
+			String result = ipower.utils.HttpUtil.sendRequest(mgr, requestUrl, requestMethod, data);
 			 
-			logger.info("callback:\r\n" + buffer.toString());
+			logger.info("callback:\r\n" + result);
 			 
-			jsonObject = JSONObject.parseObject(buffer.toString());
+			jsonObject = JSONObject.parseObject(result);
+		}catch(ConnectException e){
+			logger.error("连接服务器["+ requestUrl +"]异常：", e);
+		} catch (Exception e) {
+			logger.error("https请求异常：",e);
+		}
+		return jsonObject;
+	}
+	/**
+	 * 发起http请求并获取结果。
+	 * @param requestUrl
+	 * 	请求地址。
+	 * @param requestMethod
+	 * 	请求方式(GET,POST)。
+	 * @param data
+	 *  提交数据。
+	 *  @return 反馈结果(通过JSONObject.get(key)的方式获取json对象的属性值)。
+	 * */
+	public static JSONObject httpRequest(String requestUrl, String requestMethod, String data){
+		JSONObject jsonObject = null;
+		try {
+			logger.info("url:\r\n"+ requestUrl);
+			logger.info("method:\r\n" + requestMethod);
+			logger.info("data:\r\n"+ data);
+			
+			String result = ipower.utils.HttpUtil.sendRequest(requestUrl, requestMethod, data);
+			 
+			logger.info("callback:\r\n" + result);
+			 
+			jsonObject = JSONObject.parseObject(result);
 		}catch(ConnectException e){
 			logger.error("连接服务器["+ requestUrl +"]异常：", e);
 		} catch (Exception e) {

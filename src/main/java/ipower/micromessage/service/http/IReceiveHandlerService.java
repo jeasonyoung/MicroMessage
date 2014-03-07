@@ -15,6 +15,12 @@ public interface IReceiveHandlerService {
 	 * */
 	void setContextService(IMessgeContextService contextService);
 	/**
+	 * 设置鉴权服务接口。
+	 * @param authenticationService
+	 * 	鉴权服务接口。
+	 * */
+	void setAuthenticationService(IAuthenticationService authenticationService);
+	/**
 	 * 消息处理。
 	 * @param msgType 
 	 * 	消息类型。

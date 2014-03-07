@@ -13,7 +13,7 @@ public abstract class BaseRespMessage extends BaseMessage {
 	 * 构造函数。
 	 * */
 	public BaseRespMessage(){
-		
+		super();
 	}
 	/**
 	 * 构造函数。
