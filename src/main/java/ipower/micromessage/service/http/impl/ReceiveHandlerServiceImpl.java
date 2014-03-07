@@ -169,7 +169,7 @@ public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 	 * @return
 	 * 	处理结果。
 	 * */
-	private String handlersFactory(Map<String, IMessageHandler> map,String type, BaseMessage msg){
+	private String handlersFactory(Map<String, IMessageHandler> map,String type, BaseMessage msg){		
 		IMessageHandler msgHandler = map.get(type);
 		if(msgHandler == null){
 			logger.error("未配置消息处理：type:"+ type);
@@ -190,6 +190,7 @@ public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 	 * 	处理结果。
 	 * */
 	protected String handlersFactory(String type, BaseReqMessage msg){
+		///TODO：处理上下文
 		if(this.handlers == null){
 			logger.error("未配置[handlers]消息处理集合！");
 			return null;
@@ -204,6 +205,7 @@ public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 	 * 	处理结果。
 	 * */
 	protected String eventHandlersFactory(String event,EventMessage msg){
+		///TODO:处理上下文
 		if(this.eventHandlers == null){
 			logger.error("未配置[eventHandlers]事件消息处理集合！");
 			return null;
