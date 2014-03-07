@@ -1,4 +1,7 @@
 package ipower.micromessage.msg.resp;
+
+import ipower.micromessage.msg.BaseMessage;
+
 /**
  * 响应回复文本消息。
  * @author yangyong.
@@ -12,6 +15,14 @@ public class TextRespMessage extends BaseRespMessage {
 	 * */
 	public TextRespMessage(){
 		this.setMsgType("text");
+	}
+	/**
+	 * 构造函数。
+	 * @param req
+	 * 	请求消息。
+	 * */
+	public TextRespMessage(BaseMessage req){
+		super(req);
 	}
 	/**
 	 * 获取消息内容。

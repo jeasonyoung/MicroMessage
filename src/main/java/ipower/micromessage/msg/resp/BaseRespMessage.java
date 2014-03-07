@@ -10,6 +10,24 @@ import ipower.micromessage.msg.BaseMessage;
 public abstract class BaseRespMessage extends BaseMessage {
 	private static final long serialVersionUID = 1L;
 	/**
+	 * 构造函数。
+	 * */
+	public BaseRespMessage(){
+		
+	}
+	/**
+	 * 构造函数。
+	 * @param req
+	 * 	请求消息。
+	 * */
+	public BaseRespMessage(BaseMessage req){
+		this();
+		if(req != null){
+			this.setToUserName(req.getFromUserName());
+			this.setFromUserName(req.getToUserName());
+		}
+	}
+	/**
 	 * 获取接收方帐号(收到的OpenID)。
 	 * @return 接收方帐号(收到的OpenID)。
 	 * */

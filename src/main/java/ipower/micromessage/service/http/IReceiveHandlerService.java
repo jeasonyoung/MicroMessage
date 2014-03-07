@@ -9,6 +9,12 @@ import java.util.Map;
  * */
 public interface IReceiveHandlerService {
 	/**
+	 * 设置消息上下文服务接口。
+	 * @param contextService
+	 * 	消息上下文服务接口。
+	 * */
+	void setContextService(IMessgeContextService contextService);
+	/**
 	 * 消息处理。
 	 * @param msgType 
 	 * 	消息类型。

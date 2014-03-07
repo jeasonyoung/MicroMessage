@@ -1,5 +1,6 @@
 package ipower.micromessage.msg.resp;
 
+import ipower.micromessage.msg.BaseMessage;
 import ipower.micromessage.msg.Video;
 
 /**
@@ -15,6 +16,14 @@ public class VideoRespMessage extends BaseRespMessage {
 	 * */
 	public VideoRespMessage(){
 		this.setMsgType("video");
+	}
+	/**
+	 * 构造函数。
+	 * @param req
+	 * 	请求消息。
+	 * */
+	public VideoRespMessage(BaseMessage req){
+		super(req);
 	}
 	/**
 	 * 获取视频信息。

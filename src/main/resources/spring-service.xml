@@ -7,6 +7,8 @@
 		<property name="token" value="${micro_local_token}"/>
 		<property name="receiveHandler" ref="receiveHandlerService"/>
 	</bean>
+	<!--消息上下文服务 -->
+	<bean id="contextService" class="ipower.micromessage.service.http.MessgeContextServiceMemoryImpl"/>
 	<!--请求消息处理 -->
 	<bean id="receiveHandlerService" class="ipower.micromessage.service.http.impl.ReceiveHandlerServiceImpl">
 		<!--消息处理 -->

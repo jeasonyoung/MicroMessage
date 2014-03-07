@@ -23,6 +23,7 @@ import ipower.micromessage.msg.req.VoiceReqMessage;
 import ipower.micromessage.msg.resp.BaseRespMessage;
 import ipower.micromessage.msg.resp.RespMesssageHelper;
 import ipower.micromessage.service.http.IMessageHandler;
+import ipower.micromessage.service.http.IMessgeContextService;
 import ipower.micromessage.service.http.IReceiveHandlerService;
 
 /**
@@ -32,7 +33,17 @@ import ipower.micromessage.service.http.IReceiveHandlerService;
  * */
 public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 	private static Logger logger = Logger.getLogger(ReceiveHandlerServiceImpl.class);
+	private IMessgeContextService contextService;
 	private Map<String, IMessageHandler> handlers,eventHandlers;
+	/**
+	 * 设置上下文服务。
+	 * @param contextService
+	 * 	上下文服务。
+	 * */
+	@Override
+	public void setContextService(IMessgeContextService contextService) {
+		this.contextService = contextService;
+	}
 	/**
 	 * 设置消息处理集合。
 	 * @param handlers
@@ -160,6 +171,38 @@ public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 			}
 		}
 	}
+	
+	/**
+	 * 加载消息上下文。
+	 * @param data
+	 * 	消息。
+	 * @return
+	 * 	上下文。
+	 * */
+	private synchronized MicroContext loadContext(BaseMessage data){
+		if(data == null || data.getFromUserName() == null || data.getFromUserName().trim().isEmpty())
+			return null;
+		MicroContext context = this.contextService.get(data.getFromUserName());
+		//创建上下文。
+		if(context == null){
+			context = new MicroContext(null, data.getFromUserName());
+		}
+		context.addReqMessage(data);
+		//更新上下文
+		this.updateContext(context);
+		//返回。
+		return context;
+	}
+	/**
+	 * 更新消息上下文。
+	 * @param context
+	 * 	消息上下文。
+	 * */
+	private synchronized void updateContext(MicroContext context){
+		if(context == null || context.getOpenId() == null || context.getOpenId().trim().isEmpty())
+			return;
+		this.contextService.Update(context);
+	}
 	/**
 	 * 消息处理工厂。
 	 * @param map
@@ -169,17 +212,26 @@ public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 	 * @return
 	 * 	处理结果。
 	 * */
-	private String handlersFactory(Map<String, IMessageHandler> map,String type, BaseMessage msg){		
+	private synchronized String handlersFactory(Map<String, IMessageHandler> map,String type, BaseMessage msg){		
 		IMessageHandler msgHandler = map.get(type);
 		if(msgHandler == null){
 			logger.error("未配置消息处理：type:"+ type);
 			return null;
 		}
-		BaseRespMessage resp = msgHandler.handler(msg);
+		MicroContext context = this.loadContext(msg);
+		if(context.getUserId() == null|| context.getUserId().trim().isEmpty()){
+			///TODO:鉴权
+		}
+		BaseRespMessage resp = msgHandler.handler(context);
 		if(resp == null){
-			logger.info("反馈为null[type:"+ type + ","+ msgHandler.getClass().getName() +"]");
+			logger.error("反馈为null[type:"+ type + ","+ msgHandler.getClass().getName() +"]");
 			return null;
 		}
+		//添加回复到上下文。
+		context.addRespMessage(resp);
+		//更新上下文。
+		this.updateContext(context);
+		//生成回复xml.
 		return RespMesssageHelper.respMessageToXml(resp);
 	}
 	/**
@@ -190,7 +242,6 @@ public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 	 * 	处理结果。
 	 * */
 	protected String handlersFactory(String type, BaseReqMessage msg){
-		///TODO：处理上下文
 		if(this.handlers == null){
 			logger.error("未配置[handlers]消息处理集合！");
 			return null;
@@ -205,7 +256,6 @@ public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 	 * 	处理结果。
 	 * */
 	protected String eventHandlersFactory(String event,EventMessage msg){
-		///TODO:处理上下文
 		if(this.eventHandlers == null){
 			logger.error("未配置[eventHandlers]事件消息处理集合！");
 			return null;

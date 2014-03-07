@@ -1,5 +1,6 @@
 package ipower.micromessage.msg.resp;
 
+import ipower.micromessage.msg.BaseMessage;
 import ipower.micromessage.msg.Image;
 
 /**
@@ -15,6 +16,14 @@ public class ImageRespMessage extends BaseRespMessage {
 	 * */
 	public ImageRespMessage(){
 		this.setMsgType("image");
+	}
+	/**
+	 * 构造函数。
+	 * @param req
+	 * 	请求消息。
+	 * */
+	public ImageRespMessage(BaseMessage req){
+		super(req);
 	}
 	/**
 	 * 获取图片信息。

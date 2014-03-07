@@ -1,6 +1,8 @@
 package ipower.micromessage.msg.resp;
 
 import ipower.micromessage.msg.Article;
+import ipower.micromessage.msg.BaseMessage;
+
 import java.util.List;
 
 /**
@@ -17,6 +19,14 @@ public class ArticleRespMessage extends BaseRespMessage {
 	 * */
 	public ArticleRespMessage(){
 		this.setMsgType("news");
+	}
+	/**
+	 * 构造函数。
+	 * @param req
+	 * 	请求消息。
+	 * */
+	public ArticleRespMessage(BaseMessage req){
+		super(req);
 	}
 	/**
 	 * 获取图文消息个数，限制为10条以内。

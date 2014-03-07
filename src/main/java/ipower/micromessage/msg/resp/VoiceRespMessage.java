@@ -1,5 +1,6 @@
 package ipower.micromessage.msg.resp;
 
+import ipower.micromessage.msg.BaseMessage;
 import ipower.micromessage.msg.Voice;
 
 /**
@@ -15,6 +16,14 @@ public class VoiceRespMessage extends BaseRespMessage {
 	 * */
 	public VoiceRespMessage(){
 		this.setMsgType("voice");
+	}
+	/**
+	 * 构造函数。
+	 * @param req
+	 * 	请求消息。
+	 * */
+	public VoiceRespMessage(BaseMessage req){
+		super(req);
 	}
 	/**
 	 * 获取语音。

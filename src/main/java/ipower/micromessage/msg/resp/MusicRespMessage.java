@@ -1,5 +1,6 @@
 package ipower.micromessage.msg.resp;
 
+import ipower.micromessage.msg.BaseMessage;
 import ipower.micromessage.msg.Music;
 
 /**
@@ -15,6 +16,14 @@ public class MusicRespMessage extends BaseRespMessage {
 	 * */
 	public MusicRespMessage(){
 		this.setMsgType("music");
+	}
+	/**
+	 * 构造函数。
+	 * @param req
+	 * 	请求消息。
+	 * */
+	public MusicRespMessage(BaseMessage req){
+		super(req);
 	}
 	/**
 	 * 获取音乐信息。
