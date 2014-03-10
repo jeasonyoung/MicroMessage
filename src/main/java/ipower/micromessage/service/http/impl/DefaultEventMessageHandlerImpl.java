@@ -10,6 +10,7 @@ import ipower.micromessage.msg.MicroContext;
 import ipower.micromessage.msg.events.EventMessage;
 import ipower.micromessage.msg.resp.BaseRespMessage;
 import ipower.micromessage.msg.resp.TextRespMessage;
+import ipower.micromessage.service.IMenuClickEventHandlers;
 import ipower.micromessage.service.http.IMessageHandler;
 
 /**
@@ -19,9 +20,23 @@ import ipower.micromessage.service.http.IMessageHandler;
  * */
 public class DefaultEventMessageHandlerImpl implements IMessageHandler {
 	private static Logger logger = Logger.getLogger(DefaultEventMessageHandlerImpl.class);
+	private IMenuClickEventHandlers menuHandlers;
+	/**
+	 * 设置菜单处理集合。
+	 * @param menuHandlers
+	 * 	菜单处理集合。
+	 * */
+	public void setMenuHandlers(IMenuClickEventHandlers menuHandlers) {
+		this.menuHandlers = menuHandlers;
+	}
 	
 	@Override
 	public BaseRespMessage handler(MicroContext context) {
+		//菜单处理。
+		if(this.menuHandlers != null && context.getLastMenuKey() != null && !context.getLastMenuKey().trim().isEmpty()){
+			logger.info("事件跳转到给菜单[" + context.getLastMenuKey() + "]处理...");
+			return this.menuHandlers.handler(context);
+		}
 		logger.info("开始默认事件消息处理...");
 		EventMessage event = (EventMessage)context.getCurrentReqMessage();
 		if(event == null){

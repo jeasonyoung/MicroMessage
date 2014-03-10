@@ -1,12 +1,13 @@
 package ipower.micromessage.msg;
 
+import ipower.micromessage.msg.events.ClickEventMessage;
+import ipower.micromessage.msg.events.EventMessage;
 import ipower.micromessage.msg.resp.BaseRespMessage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 /**
  * 消息上下文。
  * @author yangyong.
@@ -66,7 +67,7 @@ public class MicroContext implements Serializable {
 	 * 列表中最多存储消息条数。
 	 * */
 	protected static final int LIST_MAX_COUNT = 10;
-	private String userId,openId;
+	private String userId,openId,lastMenuKey;
 	private Date lastActiveTime;
 	private List<BaseMessage> reqMessageList;
 	private List<BaseRespMessage> respMessageList;
@@ -104,6 +105,13 @@ public class MicroContext implements Serializable {
 		this.addReqMessage(req);
 	}
 	/**
+	 * 获取最新菜单ID。
+	 * @return 最新菜单ID。
+	 * */
+	public String getLastMenuKey() {
+		return lastMenuKey;
+	} 
+	/**
 	 * 添加请求消息。
 	 * @param req
 	 * 	请求消息。
@@ -115,6 +123,16 @@ public class MicroContext implements Serializable {
 				this.reqMessageList.remove(0);
 			}
 			this.setLastActiveTime(new Date());
+			//判断消息类型是否为事件。
+			if(req.getMsgType().equalsIgnoreCase(REQ_MESSAGE_TYPE_EVENT)){
+				EventMessage eventMessage = (EventMessage)req;
+				if(eventMessage != null && eventMessage.getEvent().equalsIgnoreCase(EVENT_MESSAGE_TYPE_CLICK)){
+					//菜单事件。
+					ClickEventMessage clickEvent = (ClickEventMessage)eventMessage;
+					if(clickEvent != null) this.lastMenuKey = clickEvent.getEventKey();
+					return;
+				}
+			}
 		}
 	}
 	/**

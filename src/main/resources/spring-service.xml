@@ -72,15 +72,19 @@
 				</entry>
 				<!--5.自定义菜单事件 -->
 				<entry key="CLICK">
-					<ref local="defaultEventMsgHandler"/>
+					<ref local="menuClickEventHandlers"/>
 				</entry>
 			</map>
 		</property>
 	</bean>
 	<!--默认消息处理 -->
-	<bean id="defaultMsgHandler" class="ipower.micromessage.service.http.impl.DefaultMessageHandlerImpl"/>
+	<bean id="defaultMsgHandler" class="ipower.micromessage.service.http.impl.DefaultMessageHandlerImpl">
+		<property name="menuHandlers" ref="menuClickEventHandlers"/>
+	</bean>
 	<!--默认事件消息处理 -->
-	<bean id="defaultEventMsgHandler" class="ipower.micromessage.service.http.impl.DefaultEventMessageHandlerImpl"/>
+	<bean id="defaultEventMsgHandler" class="ipower.micromessage.service.http.impl.DefaultEventMessageHandlerImpl">
+		<property name="menuHandlers" ref="menuClickEventHandlers"/>
+	</bean>
 	
 	<!--https证书 -->
 	<bean id="sslX509TrustManager" class="ipower.micromessage.service.http.impl.SSLX509TrustManagerImpl"/>
@@ -110,5 +114,62 @@
 	<bean id="userService" class="ipower.micromessage.service.impl.UserServiceImpl">
 		<property name="userDao" ref="userDao"/>
 		<property name="url" value="${business_url}"/>
+	</bean>
+	<!--菜单事件处理服务 -->
+	<bean id="menuClickEventHandlers" class="ipower.micromessage.service.impl.MenuClickEventHandlersImpl">
+		<property name="handlers">
+			<map>
+				<!--学校通知 -->
+				<entry key="MMM0101">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
+				<!--我的校园 -->
+				<entry key="MMM0102">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
+				
+				<!--待办待阅-->
+				<entry key="MMM0201">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
+				<!--我的工资-->
+				<entry key="MMM0202">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
+				<!--我的报修-->
+				<entry key="MMM0203">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
+				<!--我的课表-->
+				<entry key="MMM0204">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
+				<!--通讯录-->
+				<entry key="MMM0205">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
+				
+				<!--我的考试-->
+				<entry key="MMM0301">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
+				<!--我的课表-->
+				<entry key="MMM0302">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
+				<!--我的老师-->
+				<entry key="MMM0303">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
+				<!--我的成绩-->
+				<entry key="MMM0304">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
+				<!--我的报告-->
+				<entry key="MMM0305">
+					<ref local="defaultEventMsgHandler"/>
+				</entry>
+			</map>
+		</property>
 	</bean>
 </beans>

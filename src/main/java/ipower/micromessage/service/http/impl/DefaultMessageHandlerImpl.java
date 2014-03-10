@@ -2,7 +2,7 @@ package ipower.micromessage.service.http.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
+import java.util.Locale; 
 
 import org.apache.log4j.Logger;
 
@@ -10,6 +10,7 @@ import ipower.micromessage.msg.MicroContext;
 import ipower.micromessage.msg.req.BaseReqMessage;
 import ipower.micromessage.msg.resp.BaseRespMessage;
 import ipower.micromessage.msg.resp.TextRespMessage;
+import ipower.micromessage.service.IMenuClickEventHandlers;
 import ipower.micromessage.service.http.IMessageHandler;
 
 /**
@@ -19,9 +20,23 @@ import ipower.micromessage.service.http.IMessageHandler;
  * */
 public class DefaultMessageHandlerImpl implements IMessageHandler {
 	private static Logger logger = Logger.getLogger(DefaultMessageHandlerImpl.class);
-	
+	private IMenuClickEventHandlers menuHandlers;
+	/**
+	 * 设置菜单处理集合。
+	 * @param menuHandlers
+	 * 	菜单处理集合。
+	 * */
+	public void setMenuHandlers(IMenuClickEventHandlers menuHandlers) {
+		this.menuHandlers = menuHandlers;
+	}
+
 	@Override
 	public BaseRespMessage handler(MicroContext context) {
+		//菜单处理。
+		if(this.menuHandlers != null && context.getLastMenuKey() != null && !context.getLastMenuKey().trim().isEmpty()){
+			logger.info("消息跳转给菜单[" + context.getLastMenuKey() + "]处理...");
+			return this.menuHandlers.handler(context);
+		}
 		logger.info("开始默认消息处理...");
 		BaseReqMessage req = (BaseReqMessage)context.getCurrentReqMessage();
 		if(req == null){

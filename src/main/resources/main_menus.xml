@@ -10,7 +10,7 @@
   <system id="MicroMainMenu_000" sign="ipower.micromessage.menus" name="微信公众账号菜单" description="微信菜单">
   	<module id="MMM0100" name="校园动态" uri="" order="1">
   		<module id="MMM0101" name="学校通知" uri="click" order="1"/>
-  		<module id="MMM0102" name="我的校园" uri="view|www.baidu.com" order="2"/>
+  		<module id="MMM0102" name="我的校园" uri="click" order="2"/>
   	</module>
   	<module id="MMM0200" name="我是老师" uri="" order="2">
   		<module id="MMM0201" name="待办待阅" uri="click" order="1"/>
