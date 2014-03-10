@@ -15,6 +15,7 @@ public class MusicRespMessage extends BaseRespMessage {
 	 * 构造函数。
 	 * */
 	public MusicRespMessage(){
+		super();
 		this.setMsgType("music");
 	}
 	/**
@@ -24,6 +25,7 @@ public class MusicRespMessage extends BaseRespMessage {
 	 * */
 	public MusicRespMessage(BaseMessage req){
 		super(req);
+		this.setMsgType("music");
 	}
 	/**
 	 * 获取音乐信息。

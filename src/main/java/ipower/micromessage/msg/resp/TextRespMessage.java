@@ -14,6 +14,7 @@ public class TextRespMessage extends BaseRespMessage {
 	 * 构造函数。
 	 * */
 	public TextRespMessage(){
+		super();
 		this.setMsgType("text");
 	}
 	/**
@@ -23,6 +24,7 @@ public class TextRespMessage extends BaseRespMessage {
 	 * */
 	public TextRespMessage(BaseMessage req){
 		super(req);
+		this.setMsgType("text");
 	}
 	/**
 	 * 获取消息内容。

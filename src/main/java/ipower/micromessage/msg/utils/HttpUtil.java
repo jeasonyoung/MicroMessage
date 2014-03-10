@@ -1,4 +1,5 @@
 package ipower.micromessage.msg.utils;
+import java.io.IOException;
 import java.net.ConnectException;
 
 import javax.net.ssl.X509TrustManager;
@@ -53,8 +54,9 @@ public final class HttpUtil {
 	 * @param data
 	 *  提交数据。
 	 *  @return 反馈结果(通过JSONObject.get(key)的方式获取json对象的属性值)。
+	 * @throws IOException 
 	 * */
-	public static JSONObject httpRequest(String requestUrl, String requestMethod, String data){
+	public static JSONObject httpRequest(String requestUrl, String requestMethod, String data) throws IOException{
 		JSONObject jsonObject = null;
 		try {
 			logger.info("url:\r\n"+ requestUrl);
@@ -68,8 +70,6 @@ public final class HttpUtil {
 			jsonObject = JSONObject.parseObject(result);
 		}catch(ConnectException e){
 			logger.error("连接服务器["+ requestUrl +"]异常：", e);
-		} catch (Exception e) {
-			logger.error("https请求异常：",e);
 		}
 		return jsonObject;
 	}

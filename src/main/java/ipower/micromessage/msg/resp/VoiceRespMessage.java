@@ -15,6 +15,7 @@ public class VoiceRespMessage extends BaseRespMessage {
 	 * 构造函数。
 	 * */
 	public VoiceRespMessage(){
+		super();
 		this.setMsgType("voice");
 	}
 	/**
@@ -24,6 +25,7 @@ public class VoiceRespMessage extends BaseRespMessage {
 	 * */
 	public VoiceRespMessage(BaseMessage req){
 		super(req);
+		this.setMsgType("voice");
 	}
 	/**
 	 * 获取语音。

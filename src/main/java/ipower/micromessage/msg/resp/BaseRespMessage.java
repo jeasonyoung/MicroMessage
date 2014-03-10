@@ -21,7 +21,7 @@ public abstract class BaseRespMessage extends BaseMessage {
 	 * 	请求消息。
 	 * */
 	public BaseRespMessage(BaseMessage req){
-		this();
+		super();
 		if(req != null){
 			this.setToUserName(req.getFromUserName());
 			this.setFromUserName(req.getToUserName());

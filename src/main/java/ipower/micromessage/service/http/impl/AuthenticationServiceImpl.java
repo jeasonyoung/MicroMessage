@@ -48,8 +48,8 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 			BaseMessage req = context.getCurrentReqMessage();
 			TextRespMessage resp =  null;
 			//第一次回复或者请求信息非文本。
-			if(context.getRespMessageList() == null || context.getRespMessageList().size() == 0 || 
-					!req.getMsgType().equalsIgnoreCase(MicroContext.REQ_MESSAGE_TYPE_TEXT)){
+			if(!req.getMsgType().equalsIgnoreCase(MicroContext.REQ_MESSAGE_TYPE_TEXT) || 
+					context.getRespMessageList() == null || context.getRespMessageList().size() == 0){
 				resp = new TextRespMessage(req);
 				resp.setContent(this.loginWelcome);
 				return resp;
@@ -78,7 +78,11 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 				context.setUserId(callback.getUserId());
 			}
 			resp = new TextRespMessage(req);
-			resp.setContent(callback.getMessage());
+			if(callback.getMessage() == null || callback.getMessage().trim().isEmpty()){
+				resp.setContent("验证用户[" + userName + "]：" + (callback.isSuccess() ? "成功" : "失败"));
+			}else{
+				resp.setContent(callback.getMessage());
+			}
 			return resp;
 		}
 		context.setUserId(userId);

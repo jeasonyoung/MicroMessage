@@ -18,6 +18,7 @@ public class ArticleRespMessage extends BaseRespMessage {
 	 * 构造函数。
 	 * */
 	public ArticleRespMessage(){
+		super();
 		this.setMsgType("news");
 	}
 	/**
@@ -27,6 +28,7 @@ public class ArticleRespMessage extends BaseRespMessage {
 	 * */
 	public ArticleRespMessage(BaseMessage req){
 		super(req);
+		this.setMsgType("news");
 	}
 	/**
 	 * 获取图文消息个数，限制为10条以内。

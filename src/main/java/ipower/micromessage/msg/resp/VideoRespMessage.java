@@ -15,6 +15,7 @@ public class VideoRespMessage extends BaseRespMessage {
 	 * 构造函数。
 	 * */
 	public VideoRespMessage(){
+		super();
 		this.setMsgType("video");
 	}
 	/**
@@ -24,6 +25,7 @@ public class VideoRespMessage extends BaseRespMessage {
 	 * */
 	public VideoRespMessage(BaseMessage req){
 		super(req);
+		this.setMsgType("video");
 	}
 	/**
 	 * 获取视频信息。

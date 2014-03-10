@@ -15,6 +15,7 @@ public class ImageRespMessage extends BaseRespMessage {
 	 * 构造函数。
 	 * */
 	public ImageRespMessage(){
+		super();
 		this.setMsgType("image");
 	}
 	/**
@@ -24,6 +25,7 @@ public class ImageRespMessage extends BaseRespMessage {
 	 * */
 	public ImageRespMessage(BaseMessage req){
 		super(req);
+		this.setMsgType("image");
 	}
 	/**
 	 * 获取图片信息。

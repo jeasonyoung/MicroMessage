@@ -210,8 +210,7 @@ public class UserServiceImpl extends DataServiceImpl<User, UserInfo> implements 
 				return callback;
 			}
 		}catch(Exception e){
-			logger.error("校验用户时发生异常：" + e.getMessage());
-			e.printStackTrace();
+			logger.error("校验用户时发生异常：" + e.getMessage(), e);
 			callback.setSuccess(false);
 			callback.setMessage(e.getMessage());
 		}
