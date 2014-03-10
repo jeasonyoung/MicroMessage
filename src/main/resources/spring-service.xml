@@ -110,11 +110,18 @@
 		<property name="queryUrl" value="${micro_menu_queryUrl}"/>
 		<property name="deleteUrl" value="${micro_menu_deleteUrl}"/>
 	</bean>
+	
+	<!--EICP Remote Service-->
+	<bean id="remoteEICPService" class="ipower.micromessage.service.impl.RemoteEICPServiceImpl">
+		<property name="url" value="${business_url}"/>
+	</bean>
+	
 	<!--用户服务 -->
 	<bean id="userService" class="ipower.micromessage.service.impl.UserServiceImpl">
 		<property name="userDao" ref="userDao"/>
-		<property name="url" value="${business_url}"/>
+		<property name="remoteEICPService" ref="remoteEICPService"/>
 	</bean>
+	
 	<!--菜单事件处理服务 -->
 	<bean id="menuClickEventHandlers" class="ipower.micromessage.service.impl.MenuClickEventHandlersImpl">
 		<property name="handlers">

@@ -14,8 +14,9 @@ import com.alibaba.fastjson.JSONObject;
 import ipower.micromessage.dao.IUserDao;
 import ipower.micromessage.domain.User;
 import ipower.micromessage.modal.UserInfo;
+import ipower.micromessage.service.IRemoteEICPService;
+import ipower.micromessage.service.IRemoteEICPService.CallbackData;
 import ipower.micromessage.service.IUserService;
-import ipower.micromessage.msg.utils.HttpUtil;
 /**
  * 用户服务接口实现。
  * @author yangyong.
@@ -23,12 +24,15 @@ import ipower.micromessage.msg.utils.HttpUtil;
  * */
 public class UserServiceImpl extends DataServiceImpl<User, UserInfo> implements IUserService {
 	private static Logger logger = Logger.getLogger(UserServiceImpl.class);
-	
 	private IUserDao userDao;
-	private String url;
-	
-	public void setUrl(String url) {
-		this.url = url;
+	private IRemoteEICPService remoteEICPService;
+	/**
+	 * 设置远程EICP服务接口。
+	 * @param remoteEICPService
+	 * 	远程EICP服务接口。
+	 * */
+	public void setRemoteEICPService(IRemoteEICPService remoteEICPService) {
+		this.remoteEICPService = remoteEICPService;
 	}
 
 	@Override
@@ -173,22 +177,16 @@ public class UserServiceImpl extends DataServiceImpl<User, UserInfo> implements 
 	public VerifyCallback verification(String openId, String account, String password) {
 		VerifyCallback callback = new VerifyCallback();
 		
-		JSONObject post = new JSONObject(),body = new JSONObject();
-		body.put("userid", account);
-		body.put("password", password);
-		post.put("HEAD", "UserAuthentication");
-		post.put("BODY", body);
-		
+		JSONObject body = new JSONObject();		
 		try{
-			if(this.url == null || this.url.trim().isEmpty()){
-				 throw new Exception("url:为空！");
-			}
-			JSONObject result = HttpUtil.httpRequest(this.url, "POST", post.toJSONString());
-			if(result == null){
-				throw new Exception("[url:" + this.url + "]反馈为null!");
-			}
-			String userId = result.getString("HEAD");
-			body = result.getJSONObject("BODY");
+			
+			body.put("userid", account);
+			body.put("password", password);
+			
+			CallbackData result = this.remoteEICPService.remotePost("UserAuthentication", body);
+			String userId = result.getUserId();
+			body = result.getBody();
+			
 			if(body != null){
 				int code = body.getIntValue("resultcode");
 				String err = body.getString("resultmsg");
