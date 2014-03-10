@@ -8,7 +8,7 @@
 		<property name="receiveHandler" ref="receiveHandlerService"/>
 	</bean>
 	<!--消息上下文服务 -->
-	<bean id="contextService" class="ipower.micromessage.service.http.MessgeContextServiceMemoryImpl"/>
+	<bean id="contextService" class="ipower.micromessage.service.http.impl.MessgeContextServiceMemoryImpl"/>
 	<!--鉴权服务-->
 	<bean id="authenticationService" class="ipower.micromessage.service.http.impl.AuthenticationServiceImpl">
 		<!--用户验证接口。 -->
