@@ -128,49 +128,68 @@
 			<map>
 				<!--学校通知 -->
 				<entry key="MMM0101">
-					<ref local="defaultEventMsgHandler"/>
+					<bean class="ipower.micromessage.service.impl.MenuHandlerCampusNew">
+						<property name="remoteEICPService" ref="remoteEICPService"/>
+					</bean>
 				</entry>
 				<!--我的校园 -->
 				<entry key="MMM0102">
-					<ref local="defaultEventMsgHandler"/>
+					<bean class="ipower.micromessage.service.impl.MenuHandlerMySchool">
+						<property name="remoteEICPService" ref="remoteEICPService"/>
+					</bean>
 				</entry>
 				
 				<!--待办待阅-->
 				<entry key="MMM0201">
-					<ref local="defaultEventMsgHandler"/>
+					<bean class="ipower.micromessage.service.impl.MenuHandlerTodo">
+						<property name="remoteEICPService" ref="remoteEICPService"/>
+					</bean>
 				</entry>
 				<!--我的工资-->
 				<entry key="MMM0202">
-					<ref local="defaultEventMsgHandler"/>
+					<bean class="ipower.micromessage.service.impl.MenuHandlerMySalary">
+						<property name="remoteEICPService" ref="remoteEICPService"/>
+					</bean>
 				</entry>
 				<!--我的报修-->
 				<entry key="MMM0203">
-					<ref local="defaultEventMsgHandler"/>
+					<bean class="ipower.micromessage.service.impl.MenuHandlerMyRepairs">
+						<property name="remoteEICPService" ref="remoteEICPService"/>
+					</bean>
 				</entry>
 				<!--我的课表-->
 				<entry key="MMM0204">
-					<ref local="defaultEventMsgHandler"/>
+					<ref local="menuHandlerMyLesson"/>
 				</entry>
 				<!--通讯录-->
 				<entry key="MMM0205">
-					<ref local="defaultEventMsgHandler"/>
+					<bean class="ipower.micromessage.service.impl.MenuHandlerSearchUser">
+						<property name="remoteEICPService" ref="remoteEICPService"/>
+						<property name="toolTip" value="${searchUser_ToolTip}"/>
+					</bean>
 				</entry>
 				
 				<!--我的考试-->
 				<entry key="MMM0301">
-					<ref local="defaultEventMsgHandler"/>
+					<bean class="ipower.micromessage.service.impl.MenuHandlerMyExam">
+						<property name="remoteEICPService" ref="remoteEICPService"/>
+					</bean>
 				</entry>
 				<!--我的课表-->
 				<entry key="MMM0302">
-					<ref local="defaultEventMsgHandler"/>
+					<ref local="menuHandlerMyLesson"/>
 				</entry>
 				<!--我的老师-->
 				<entry key="MMM0303">
-					<ref local="defaultEventMsgHandler"/>
+					<bean class="ipower.micromessage.service.impl.MenuHandlerMyTeacher">
+						<property name="remoteEICPService" ref="remoteEICPService"/>
+					</bean>
 				</entry>
 				<!--我的成绩-->
 				<entry key="MMM0304">
-					<ref local="defaultEventMsgHandler"/>
+					<bean class="ipower.micromessage.service.impl.MenuHandlerMyScore">
+						<property name="remoteEICPService" ref="remoteEICPService"/>
+					</bean>
 				</entry>
 				<!--我的报告-->
 				<entry key="MMM0305">
@@ -178,5 +197,9 @@
 				</entry>
 			</map>
 		</property>
+	</bean>
+	<!--查询课表 -->
+	<bean id="menuHandlerMyLesson" class="ipower.micromessage.service.impl.MenuHandlerMyLesson">
+		<property name="remoteEICPService" ref="remoteEICPService"/>
 	</bean>
 </beans>

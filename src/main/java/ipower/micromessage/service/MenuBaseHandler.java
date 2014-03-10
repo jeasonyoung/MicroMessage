@@ -80,12 +80,25 @@ public abstract class MenuBaseHandler implements IMessageHandler {
 	 * 	当前请求消息。
 	 * @param context
 	 * 	上下文。
+	 * @param data
+	 * 	文本消息。
+	 * @return 处理反馈。 
+	 * */
+	protected BaseRespMessage handlerMessage(BaseMessage current,MicroContext context,String data){
+		TextRespMessage respMessage = new TextRespMessage(current);
+		//发布空消息。
+		respMessage.setContent(data);
+		return respMessage;
+	}
+	/**
+	 * 一般消息处理。
+	 * @param current
+	 * 	当前请求消息。
+	 * @param context
+	 * 	上下文。
 	 * @return 处理反馈。 
 	 * */
 	protected BaseRespMessage handlerMessage(BaseMessage current,MicroContext context){
-		TextRespMessage respMessage = new TextRespMessage(current);
-		//发布空消息。
-		respMessage.setContent("");
-		return respMessage;
+		return this.handlerMessage(current, context, "");
 	}
 }
