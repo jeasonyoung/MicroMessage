@@ -170,7 +170,9 @@ public class UserServiceImpl extends DataServiceImpl<User, UserInfo> implements 
 	}
 
 	@Override
-	public String verification(String openId, String account, String password) {
+	public VerifyCallback verification(String openId, String account, String password) {
+		VerifyCallback callback = new VerifyCallback();
+		
 		JSONObject post = new JSONObject(),body = new JSONObject();
 		body.put("userid", account);
 		body.put("password", password);
@@ -192,18 +194,29 @@ public class UserServiceImpl extends DataServiceImpl<User, UserInfo> implements 
 				String err = body.getString("resultmsg");
 				if(code == -1){
 					logger.error("验证用户失败！[err:" + err + "]" );
-					return null;
+					callback.setSuccess(false);
+					callback.setUserId(null);
+					callback.setMessage(err);
+					return callback;
 				}
 				if(!this.addUser(userId, account, openId)){
-					logger.error("插入用时发生未知错误");
-					return null;
+					logger.error(err = "插入用户本地缓存时发生未知错误");
+					callback.setSuccess(false);
+					callback.setUserId(null);
+					callback.setMessage(err);
+					return callback;
 				}
-				return userId; 
+				callback.setSuccess(true);
+				callback.setUserId(userId);
+				callback.setMessage(err);
+				return callback;
 			}
 		}catch(Exception e){
 			logger.error("校验用户时发生异常：" + e.getMessage());
 			e.printStackTrace();
+			callback.setSuccess(false);
+			callback.setMessage(e.getMessage());
 		}
-		return null;
+		return callback;
 	}
 }

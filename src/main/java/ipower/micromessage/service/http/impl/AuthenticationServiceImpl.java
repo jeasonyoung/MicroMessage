@@ -7,6 +7,7 @@ import ipower.micromessage.msg.resp.BaseRespMessage;
 import ipower.micromessage.msg.resp.TextRespMessage;
 import ipower.micromessage.service.http.IAuthenticationService;
 import ipower.micromessage.service.http.IUserAuthentication;
+import ipower.micromessage.service.http.IUserAuthentication.VerifyCallback;
 
 /**
  * 鉴权服务实现类。
@@ -70,8 +71,15 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 				resp.setContent("您输入的格式不正确！\r\n\r\n" + this.loginWelcome);
 				return resp;
 			}
-			///TODO:验证账号密码。
-			
+			String userName = content.substring(0, index),
+				   password = content.substring(index + 1);
+			VerifyCallback callback = this.userAuthentication.verification(reqMessage.getFromUserName(), userName, password);
+			if(callback.isSuccess()){
+				context.setUserId(callback.getUserId());
+			}
+			resp = new TextRespMessage(req);
+			resp.setContent(callback.getMessage());
+			return resp;
 		}
 		context.setUserId(userId);
 		return null;

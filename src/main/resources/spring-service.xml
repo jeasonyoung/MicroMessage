@@ -21,7 +21,7 @@
 		<!--上下文服务 -->
 		<property name="contextService" ref="contextService"/>
 		<!--鉴权服务 -->
-		<property name="authenticationService" ref=""/>
+		<property name="authenticationService" ref="authenticationService"/>
 		<!--消息处理 -->
 		<property name="handlers">
 			<map>
