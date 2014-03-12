@@ -204,7 +204,9 @@
 				</entry>
 				<!--我的报告-->
 				<entry key="MMM0305">
-					<ref local="defaultEventMsgHandler"/>
+					<bean class="ipower.micromessage.service.impl.MenuHandlerMyScoreReport">
+						<property name="remoteEICPService" ref="remoteEICPService"/>
+					</bean>
 				</entry>
 			</map>
 		</property>
