@@ -212,7 +212,7 @@ public class ReceiveHandlerServiceImpl implements IReceiveHandlerService {
 	private synchronized void updateContext(MicroContext context){
 		if(context == null || context.getOpenId() == null || context.getOpenId().trim().isEmpty())
 			return;
-		this.contextService.Update(context);
+		this.contextService.update(context);
 	}
 	/**
 	 * 消息处理工厂。

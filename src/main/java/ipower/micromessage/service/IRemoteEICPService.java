@@ -29,7 +29,7 @@ public interface IRemoteEICPService {
 	 * */
 	public class CallbackData{
 		private String userId;
-		private JSONObject body;
+		private String body;
 		/**
 		 * 获取业务系统用户代码。
 		 * @return 业务系统用户代码。
@@ -49,7 +49,7 @@ public interface IRemoteEICPService {
 		 * 获取反馈主体数据。
 		 * @return 主体数据。
 		 * */
-		public JSONObject getBody() {
+		public String getBody() {
 			return body;
 		}
 		/**
@@ -57,7 +57,7 @@ public interface IRemoteEICPService {
 		 * @param body
 		 * 	反馈主体数据。
 		 * */
-		public void setBody(JSONObject body) {
+		public void setBody(String body) {
 			this.body = body;
 		}
 	}

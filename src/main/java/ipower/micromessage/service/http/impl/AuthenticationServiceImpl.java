@@ -88,5 +88,17 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		context.setUserId(userId);
 		return null;
 	}
+	/**
+	 * 移除鉴权持久。
+	 * @param context
+	 * 	消息上下文。
+	 * */
+	@Override
+	public boolean remove(MicroContext context) {
+		if(context != null){
+			return this.userAuthentication.remove(context.getUserId());
+		}
+		return false;
+	}
 
 }

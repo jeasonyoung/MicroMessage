@@ -9,6 +9,7 @@ import java.util.UUID;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import ipower.micromessage.dao.IUserDao;
@@ -185,7 +186,7 @@ public class UserServiceImpl extends DataServiceImpl<User, UserInfo> implements 
 			
 			CallbackData result = this.remoteEICPService.remotePost("UserAuthentication", body);
 			String userId = result.getUserId();
-			body = result.getBody();
+			body = JSON.parseObject(result.getBody());
 			
 			if(body != null){
 				int code = body.getIntValue("resultcode");
@@ -215,5 +216,16 @@ public class UserServiceImpl extends DataServiceImpl<User, UserInfo> implements 
 			callback.setMessage(e.getMessage());
 		}
 		return callback;
+	}
+
+	@Override
+	public boolean remove(String userId) {
+		if(userId == null || userId.trim().isEmpty()) return false;
+		User user = this.loadByUserId(userId);
+		if(user != null){
+			this.userDao.delete(user);
+			return true;
+		}
+		return false;
 	}
 }

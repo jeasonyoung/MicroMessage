@@ -21,5 +21,11 @@ public interface IMessgeContextService {
 	 * @param context
 	 * 	上下文。
 	 * */
-	void Update(MicroContext context);
+	void update(MicroContext context);
+	/**
+	 * 移除上下文。
+	 * @param context
+	 *	上下文.
+	 * */
+	void remove(MicroContext context);
 }

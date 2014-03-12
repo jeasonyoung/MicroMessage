@@ -9,13 +9,13 @@ import java.io.Serializable;
  * */
 public class Article implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String title,description,picUrl,url;
+	private String Title,Description,PicUrl,Url;
 	/**
 	 * 获取图文消息标题。
 	 * @return 图文消息标题。
 	 * */
 	public String getTitle() {
-		return title;
+		return Title;
 	}
 	/**
 	 * 设置图文消息标题。
@@ -23,14 +23,14 @@ public class Article implements Serializable {
 	 * 	图文消息标题。
 	 * */
 	public void setTitle(String title) {
-		this.title = title;
+		this.Title = title;
 	}
 	/**
 	 * 获取图文信息描述。
 	 * @return 图文信息描述。
 	 * */
 	public String getDescription() {
-		return description;
+		return Description;
 	}
 	/**
 	 * 设置图文信息描述。
@@ -38,14 +38,14 @@ public class Article implements Serializable {
 	 * 	图文信息描述。
 	 * */
 	public void setDescription(String description) {
-		this.description = description;
+		this.Description = description;
 	}
 	/**
 	 * 获取图片链接。
 	 * @return 图片链接。
 	 * */
 	public String getPicUrl() {
-		return picUrl;
+		return PicUrl;
 	}
 	/**
 	 * 设置图片链接。
@@ -53,14 +53,14 @@ public class Article implements Serializable {
 	 * 	图片链接。
 	 * */
 	public void setPicUrl(String picUrl) {
-		this.picUrl = picUrl;
+		this.PicUrl = picUrl;
 	}
 	/**
 	 * 获取图文消息跳转链接。
 	 * @return 图文消息跳转链接。
 	 * */
 	public String getUrl() {
-		return url;
+		return Url;
 	}
 	/**
 	 * 设置图文消息跳转链接。
@@ -68,6 +68,6 @@ public class Article implements Serializable {
 	 * 	图文消息跳转链接。
 	 * */
 	public void setUrl(String url) {
-		this.url = url;
+		this.Url = url;
 	}
 }

@@ -56,11 +56,14 @@
 			<map>
 				<!--1.关注事件 -->
 				<entry key="subscribe">
-					<ref local="defaultEventMsgHandler"/>
+					<bean class="ipower.micromessage.service.impl.EventHandlerSubscribe"/>
 				</entry>
 				<!--2.取消关注事件 -->
 				<entry key="unsubscribe">
-					<ref local="defaultEventMsgHandler"/>
+					<bean class="ipower.micromessage.service.impl.EventHandlerUnsubscribe">
+						<property name="authenticationService" ref="authenticationService"/>
+						<property name="contextService" ref="contextService"/>
+					</bean>
 				</entry>
 				<!--3.扫描事件 -->
 				<entry key="SCAN">
@@ -136,6 +139,14 @@
 				<entry key="MMM0102">
 					<bean class="ipower.micromessage.service.impl.MenuHandlerMySchool">
 						<property name="remoteEICPService" ref="remoteEICPService"/>
+					</bean>
+				</entry>
+				<!--切换账号 -->
+				<entry key="MMM0103">
+					<bean class="ipower.micromessage.service.impl.MenuHandlerCancelAccount">
+						<property name="authenticationService" ref="authenticationService"/>
+						<property name="contextService" ref="contextService"/>
+						<property name="logoutTooltip" value="${logout_toolTip}"/>
 					</bean>
 				</entry>
 				

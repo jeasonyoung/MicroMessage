@@ -1,6 +1,7 @@
 package ipower.micromessage.service.impl;
 
 import org.apache.log4j.Logger;
+
 import com.alibaba.fastjson.JSONObject;
 import ipower.micromessage.msg.utils.HttpUtil;
 import ipower.micromessage.service.IRemoteEICPService;
@@ -35,14 +36,14 @@ public class RemoteEICPServiceImpl implements IRemoteEICPService {
 			JSONObject result = HttpUtil.httpRequest(this.url,"POST",head.toJSONString());
 			if(result != null){
 				callback.setUserId(result.getString("HEAD"));
-				callback.setBody(result.getJSONObject("BODY"));
+				callback.setBody(result.getString("BODY"));
 			}
 		} catch (Exception e) {
 			logger.error("与EICP交互数据时异常： "+ e.getMessage(), e);
 			JSONObject body = new JSONObject();
 			body.put("resultcode", -1);
 			body.put("resultmsg", e.getMessage());
-			callback.setBody(body);			
+			callback.setBody(body.toJSONString());			
 		}
 		return callback;
 	}

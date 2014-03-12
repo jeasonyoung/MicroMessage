@@ -66,7 +66,7 @@ public final class HttpUtil {
 			String result = ipower.utils.HttpUtil.sendRequest(requestUrl, requestMethod, data);
 			 
 			logger.info("callback:\r\n" + result);
-			 
+			 if(result == null || result.trim().isEmpty()) return null;
 			jsonObject = JSONObject.parseObject(result);
 		}catch(ConnectException e){
 			logger.error("连接服务器["+ requestUrl +"]异常：", e);

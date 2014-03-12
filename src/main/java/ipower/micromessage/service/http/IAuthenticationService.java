@@ -17,4 +17,10 @@ public interface IAuthenticationService {
 	 * 	回复消息。
 	 * */
 	BaseRespMessage authen(MicroContext context);
+	/**
+	 * 移除鉴权持久。
+	 * @param context
+	 * 	消息上下文。
+	 * */
+	boolean remove(MicroContext context);
 }

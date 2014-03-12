@@ -13,6 +13,12 @@ public interface IUserAuthentication {
 	 * */
 	String loadUserId(String openId);
 	/**
+	 * 移除用户。
+	 * @param userId
+	 *  用户ID。
+	 * */
+	boolean remove(String userId);
+	/**
 	 * 验证用户。
 	 * @param openId
 	 * 	微信openId.

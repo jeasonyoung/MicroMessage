@@ -22,9 +22,18 @@ public class MessgeContextServiceMemoryImpl implements IMessgeContextService {
 	}
 
 	@Override
-	public synchronized void Update(MicroContext context) {
+	public synchronized void update(MicroContext context) {
 		if(context == null || context.getOpenId() == null || context.getOpenId().trim().isEmpty())
 			return;
 		cache.put(context.getOpenId(), context);
+	}
+
+	@Override
+	public synchronized void remove(MicroContext context) {
+		if(context == null || context.getOpenId() == null || context.getOpenId().trim().isEmpty()) return;
+		String openId = context.getOpenId();
+		if(cache.containsKey(openId)){
+			cache.remove(openId);
+		}
 	}
 }
