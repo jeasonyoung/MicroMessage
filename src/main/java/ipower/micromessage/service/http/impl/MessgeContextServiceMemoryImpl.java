@@ -34,6 +34,7 @@ public class MessgeContextServiceMemoryImpl implements IMessgeContextService {
 		String openId = context.getOpenId();
 		if(cache.containsKey(openId)){
 			cache.remove(openId);
+			context.clear();
 		}
 	}
 }

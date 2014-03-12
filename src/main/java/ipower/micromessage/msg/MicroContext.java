@@ -66,7 +66,7 @@ public class MicroContext implements Serializable {
 	/**
 	 * 列表中最多存储消息条数。
 	 * */
-	protected static final int LIST_MAX_COUNT = 10;
+	protected static final int LIST_MAX_COUNT = 5;
 	private String userId,openId,lastMenuKey;
 	private Date lastActiveTime;
 	private List<BaseMessage> reqMessageList;
@@ -123,6 +123,10 @@ public class MicroContext implements Serializable {
 				this.reqMessageList.remove(0);
 			}
 			this.setLastActiveTime(new Date());
+			if(this.userId == null || this.userId.trim().isEmpty()){
+				this.lastMenuKey = null;
+				return;
+			}
 			//判断消息类型是否为事件。
 			if(req.getMsgType().equalsIgnoreCase(REQ_MESSAGE_TYPE_EVENT)){
 				EventMessage eventMessage = (EventMessage)req;
@@ -134,6 +138,14 @@ public class MicroContext implements Serializable {
 				}
 			}
 		}
+	}
+	/**
+	 * 清空上下文。
+	 * */
+	public synchronized void clear(){
+		this.lastMenuKey = null;
+		this.reqMessageList.clear();
+		this.respMessageList.clear();
 	}
 	/**
 	 * 添加响应消息。
