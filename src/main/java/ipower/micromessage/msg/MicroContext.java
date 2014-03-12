@@ -144,6 +144,7 @@ public class MicroContext implements Serializable {
 	 * */
 	public synchronized void clear(){
 		this.lastMenuKey = null;
+		this.setUserId(null);
 		this.reqMessageList.clear();
 		this.respMessageList.clear();
 	}
