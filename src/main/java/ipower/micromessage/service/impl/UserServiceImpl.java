@@ -124,10 +124,7 @@ public class UserServiceImpl extends DataServiceImpl<User, UserInfo> implements 
 		if(userAccount == null || userAccount.trim().isEmpty()) return false;
 		if(openId == null || openId.trim().isEmpty()) return false;
 		
-		User data = this.loadByUserId(userId);
-		if(data == null){
-			data = this.loadByOpenId(openId);
-		}
+		User data = this.userDao.load(User.class, openId);
 		boolean isAdded = false;
 		if(isAdded = (data == null)){
 			data = new User();
@@ -141,37 +138,13 @@ public class UserServiceImpl extends DataServiceImpl<User, UserInfo> implements 
 		
 		return true;
 	}
-	/**
-	 * 加载用户。
-	 * @param userId
-	 * 	用户ID。
-	 * @return 用户。
-	 * */
-	private User loadByUserId(String userId) {
-		if(userId == null)return null;
-		return this.userDao.load(User.class, userId);
-	}
-	/**
-	 * 加载用户。
-	 * @param openId
-	 * 	微信openId。
-	 * @return 用户。
-	 * */ 
-	private User loadByOpenId(String openId) {
-		if(openId == null || openId.trim().isEmpty()) return null;
-		final String hql = "from User u where u.openId = :openId";
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("openId", openId);
-		List<User> list = this.userDao.find(hql, parameters, null, null);
-		if(list == null || list.size() == 0) return null;
-		return list.get(0);
-	}
 
 	@Override
 	public String loadUserId(String openId) {
-		User user = this.loadByOpenId(openId);
-		if(user == null)return null;
-		return user.getId();
+		if(openId == null || openId.trim().isEmpty())return null;
+		User data = this.userDao.load(User.class, openId);
+		if(data == null)return null;
+		return data.getId();
 	}
 
 	@Override
@@ -219,9 +192,9 @@ public class UserServiceImpl extends DataServiceImpl<User, UserInfo> implements 
 	}
 
 	@Override
-	public boolean remove(String userId) {
-		if(userId == null || userId.trim().isEmpty()) return false;
-		User user = this.loadByUserId(userId);
+	public boolean remove(String openId) {
+		if(openId == null || openId.trim().isEmpty()) return false;
+		User user = this.userDao.load(User.class, openId);
 		if(user != null){
 			this.userDao.delete(user);
 			return true;

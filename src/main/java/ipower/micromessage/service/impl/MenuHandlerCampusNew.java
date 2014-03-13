@@ -23,7 +23,17 @@ import ipower.micromessage.service.MenuBaseHandler;
  * @since 2014-03-10.
  * */
 public class MenuHandlerCampusNew extends MenuBaseHandler {
-	public final static int MAX_Article_SIZE = 10 - 1;
+	public final static int MAX_Article_SIZE = 9;
+	private String articleMaxPic,articleMinPic;
+	
+	public void setArticleMaxPic(String articleMaxPic) {
+		this.articleMaxPic = articleMaxPic;
+	}
+
+	public void setArticleMinPic(String articleMinPic) {
+		this.articleMinPic = articleMinPic;
+	}
+
 	@Override
 	protected BaseRespMessage handler(TextReqMessage current, MicroContext context) {
 		return this.createContent(current, context);
@@ -49,12 +59,18 @@ public class MenuHandlerCampusNew extends MenuBaseHandler {
 		
 		ArticleRespMessage resp = new ArticleRespMessage(current);
 		List<Article> articles = new ArrayList<Article>();
+		Article title = new Article();
+		//title.setTitle(" ");
+		title.setPicUrl(this.articleMaxPic);
+		articles.add(title);
+		
 		for(int i = 0; i < size; i++){
-			if(i > MAX_Article_SIZE) break;
+			if(i > MAX_Article_SIZE - 1) break;
 			JSONObject obj = bodys.getJSONObject(i);
 			if(obj != null){
 				Article article = new Article();
 				article.setTitle(obj.getString("title"));
+				article.setPicUrl(this.articleMinPic);
 				article.setUrl(obj.getString("link"));
 				articles.add(article);
 			}

@@ -132,6 +132,8 @@
 				<!--学校通知 -->
 				<entry key="MMM0101">
 					<bean class="ipower.micromessage.service.impl.MenuHandlerCampusNew">
+						<property name="articleMaxPic" value="http://wx.edumis.net/images/wx360.jpg"/>
+						<property name="articleMinPic" value="http://wx.edumis.net/images/wx200.jpg"/>
 						<property name="remoteEICPService" ref="remoteEICPService"/>
 					</bean>
 				</entry>

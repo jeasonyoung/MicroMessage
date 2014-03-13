@@ -91,10 +91,9 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 	 * */
 	@Override
 	public boolean remove(MicroContext context) {
-		if(context != null){
-			return this.userAuthentication.remove(context.getUserId());
-		}
-		return false;
+		if(context == null) return false; 
+		this.userAuthentication.remove(context.getOpenId());
+		return true;
 	}
 
 }
