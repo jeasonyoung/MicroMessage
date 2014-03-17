@@ -150,36 +150,31 @@ public class UserServiceImpl extends DataServiceImpl<User, UserInfo> implements 
 	@Override
 	public VerifyCallback verification(String openId, String account, String password) {
 		VerifyCallback callback = new VerifyCallback();
-		
-		JSONObject body = new JSONObject();		
 		try{
-			
+			JSONObject body = new JSONObject();
 			body.put("userid", account);
 			body.put("password", password);
 			
 			CallbackData result = this.remoteEICPService.remotePost("UserAuthentication", body);
 			String userId = result.getUserId();
-			body = JSON.parseObject(result.getBody());
-			
-			if(body != null){
-				int code = body.getIntValue("resultcode");
-				String err = body.getString("resultmsg");
-				if(code == -1){
-					logger.error("验证用户失败！[err:" + err + "]" );
-					callback.setSuccess(false);
-					callback.setUserId(null);
-					callback.setMessage(err);
-					return callback;
-				}
-				if(!this.addUser(userId, account, openId)){
-					logger.error(err = "插入用户本地缓存时发生未知错误");
-					callback.setSuccess(false);
-					callback.setUserId(null);
-					callback.setMessage(err);
-					return callback;
-				}
+			if(userId != null && !userId.trim().isEmpty()){
 				callback.setSuccess(true);
 				callback.setUserId(userId);
+				boolean isAdd = this.addUser(userId, account, openId);
+				logger.info(isAdd ? "用户验证成功！" :"插入用户本地缓存时发生未知错误!" );
+				return callback;
+			}
+			if(result.getCode() < 0){
+				logger.info("验证用户反馈：[" + result.getCode() + "]:" + result.getError());
+				callback.setSuccess(false);
+				callback.setMessage(result.getError());
+				return callback;
+			}
+			if(result.getCode() == 0 && result.getBody() != null && !result.getBody().trim().isEmpty()){
+				body = JSON.parseObject(result.getBody());
+				String err = body.getString("resultmsg");
+				logger.info("验证用户失败[" + body.getInteger("resultcode")+ "]:" + err);
+				callback.setSuccess(false);
 				callback.setMessage(err);
 				return callback;
 			}

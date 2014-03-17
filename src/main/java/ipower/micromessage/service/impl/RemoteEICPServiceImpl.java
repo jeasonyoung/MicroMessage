@@ -37,13 +37,13 @@ public class RemoteEICPServiceImpl implements IRemoteEICPService {
 			if(result != null){
 				callback.setUserId(result.getString("HEAD"));
 				callback.setBody(result.getString("BODY"));
+				callback.setCode(result.getInteger("ERRORCODE"));
+				callback.setError(result.getString("ERRORMSG"));
 			}
 		} catch (Exception e) {
 			logger.error("与EICP交互数据时异常： "+ e.getMessage(), e);
-			JSONObject body = new JSONObject();
-			body.put("resultcode", -1);
-			body.put("resultmsg", e.getMessage());
-			callback.setBody(body.toJSONString());			
+			callback.setCode(-2);
+			callback.setError(e.getMessage());
 		}
 		return callback;
 	}

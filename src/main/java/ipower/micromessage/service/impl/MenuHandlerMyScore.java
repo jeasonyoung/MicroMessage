@@ -1,6 +1,5 @@
 package ipower.micromessage.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.alibaba.fastjson.JSON;
@@ -10,47 +9,33 @@ import com.alibaba.fastjson.JSONObject;
 import ipower.micromessage.msg.Article;
 import ipower.micromessage.msg.BaseMessage;
 import ipower.micromessage.msg.MicroContext;
-import ipower.micromessage.msg.events.ClickEventMessage;
-import ipower.micromessage.msg.req.TextReqMessage;
 import ipower.micromessage.msg.resp.ArticleRespMessage;
-import ipower.micromessage.msg.resp.BaseRespMessage;
-import ipower.micromessage.service.MenuBaseHandler;
+import ipower.micromessage.service.MenuArticleHandler;
 import ipower.micromessage.service.IRemoteEICPService.CallbackData;
-
 /**
  * 我的成绩。
  * @author yangyong.
  * @since 2014-03-10.
  * */
-public class MenuHandlerMyScore extends MenuBaseHandler {
-	public final static int MAX_Article_SIZE = 10 - 1;
-	
-	@Override
-	protected BaseRespMessage handler(TextReqMessage current, MicroContext context) {
-		return this.createContent(current, context);
-	}
+public class MenuHandlerMyScore extends MenuArticleHandler {
 
 	@Override
-	protected BaseRespMessage menuClick(ClickEventMessage current, MicroContext context) {
-		return this.createContent(current, context);
-	}
-	
-	private BaseRespMessage createContent(BaseMessage current,MicroContext context){
+	protected ArticleRespMessage createConent(BaseMessage current,MicroContext context, List<Article> articles) {
 		JSONObject post = new JSONObject();
 		post.put("usersysid", context.getUserId());
 		CallbackData callback = this.remoteEICPService.remotePost("MyScore", post);
-		if(callback == null || callback.getBody() == null || callback.getBody().trim().isEmpty()){
-			return this.handlerMessage(current, context, "暂时没有您的成绩！");
+		if(callback.getCode() != 0){
+			articles.add(new Article(callback.getError()));
+			return this.createRespMessage(current, articles);
 		}
 		JSONArray bodys = JSON.parseArray(callback.getBody());
 		int size = 0;
-		if(bodys == null || (size = bodys.size()) == 0)
-			return this.handlerMessage(current, context, "暂时没有您的成绩！");
-		
-		ArticleRespMessage resp = new ArticleRespMessage(current);
-		List<Article> articles = new ArrayList<Article>();
+		if(bodys == null || (size = bodys.size()) == 0){
+			articles.add(new Article("没有获取到您的成绩！"));
+			return this.createRespMessage(current, articles);
+		}
 		for(int i = 0; i < size; i++){
-			if(i > MAX_Article_SIZE) break;
+			if(i > MAX_Article_SIZE - 1) break;
 			JSONObject obj = bodys.getJSONObject(i);
 			if(obj != null){
 				Article article = new Article();
@@ -59,8 +44,6 @@ public class MenuHandlerMyScore extends MenuBaseHandler {
 				articles.add(article);
 			}
 		}
-		resp.setArticleCount(articles.size());
-		resp.setArticles(articles);
-		return resp;
+		return this.createRespMessage(current, articles);
 	}
 }

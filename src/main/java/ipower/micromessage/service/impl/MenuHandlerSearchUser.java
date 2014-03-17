@@ -38,13 +38,13 @@ public class MenuHandlerSearchUser extends MenuBaseHandler {
 		post.put("name",name);
 		CallbackData callback = this.remoteEICPService.remotePost("SearchUser", post);
 		if(callback == null || callback.getBody() == null || callback.getBody().trim().isEmpty()){
-			return this.handlerMessage(current, context, "暂时没有通讯录！");
+			return this.handlerMessage(current, context, "没有获取到通讯录！");
 		}
 		JSONArray bodys = JSON.parseArray(callback.getBody());
 		int size = 0;
-		if(bodys == null || (size = bodys.size()) == 0)
+		if(bodys == null || (size = bodys.size()) == 0){
 			return this.handlerMessage(current, context, "没有找到[" + name + "]的信息！");
-		
+		}
 		StringBuilder data = new StringBuilder();
 		for(int i = 0; i < size; i++){
 			JSONObject obj = bodys.getJSONObject(i);
@@ -59,7 +59,5 @@ public class MenuHandlerSearchUser extends MenuBaseHandler {
 	@Override
 	protected BaseRespMessage menuClick(ClickEventMessage current, MicroContext context) {
 		return this.handlerMessage(current, context,this.toolTip);
-	}
-	
-	 
+	}	 
 }

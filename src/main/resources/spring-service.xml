@@ -132,14 +132,14 @@
 				<!--学校通知 -->
 				<entry key="MMM0101">
 					<bean class="ipower.micromessage.service.impl.MenuHandlerCampusNew">
-						<property name="articleMaxPic" value="http://wx.edumis.net/images/wx360.jpg"/>
-						<property name="articleMinPic" value="http://wx.edumis.net/images/wx200.jpg"/>
+						<property name="picUrl" value="${pic_server_prefix}/new.jpg"/>
 						<property name="remoteEICPService" ref="remoteEICPService"/>
 					</bean>
 				</entry>
 				<!--我的校园 -->
 				<entry key="MMM0102">
 					<bean class="ipower.micromessage.service.impl.MenuHandlerMySchool">
+						<property name="picUrl" value="${pic_server_prefix}/wx360.jpg"/>
 						<property name="remoteEICPService" ref="remoteEICPService"/>
 					</bean>
 				</entry>
@@ -155,18 +155,21 @@
 				<!--待办待阅-->
 				<entry key="MMM0201">
 					<bean class="ipower.micromessage.service.impl.MenuHandlerTodo">
+						<property name="picUrl" value="${pic_server_prefix}/todo.jpg"/>
 						<property name="remoteEICPService" ref="remoteEICPService"/>
 					</bean>
 				</entry>
 				<!--我的工资-->
 				<entry key="MMM0202">
 					<bean class="ipower.micromessage.service.impl.MenuHandlerMySalary">
+						<property name="picUrl" value="${pic_server_prefix}/salary.jpg"/>
 						<property name="remoteEICPService" ref="remoteEICPService"/>
 					</bean>
 				</entry>
 				<!--我的报修-->
 				<entry key="MMM0203">
 					<bean class="ipower.micromessage.service.impl.MenuHandlerMyRepairs">
+						<property name="picUrl" value="${pic_server_prefix}/repairs.jpg"/>
 						<property name="remoteEICPService" ref="remoteEICPService"/>
 					</bean>
 				</entry>
@@ -185,6 +188,7 @@
 				<!--我的考试-->
 				<entry key="MMM0301">
 					<bean class="ipower.micromessage.service.impl.MenuHandlerMyExam">
+						<property name="picUrl" value="${pic_server_prefix}/exam.jpg"/>
 						<property name="remoteEICPService" ref="remoteEICPService"/>
 					</bean>
 				</entry>
@@ -195,18 +199,21 @@
 				<!--我的老师-->
 				<entry key="MMM0303">
 					<bean class="ipower.micromessage.service.impl.MenuHandlerMyTeacher">
+						<property name="picUrl" value="${pic_server_prefix}/teacher.jpg"/>
 						<property name="remoteEICPService" ref="remoteEICPService"/>
 					</bean>
 				</entry>
 				<!--我的成绩-->
 				<entry key="MMM0304">
 					<bean class="ipower.micromessage.service.impl.MenuHandlerMyScore">
+						<property name="picUrl" value="${pic_server_prefix}/score.jpg"/>
 						<property name="remoteEICPService" ref="remoteEICPService"/>
 					</bean>
 				</entry>
 				<!--我的报告-->
 				<entry key="MMM0305">
 					<bean class="ipower.micromessage.service.impl.MenuHandlerMyScoreReport">
+						<property name="picUrl" value="${pic_server_prefix}/report.jpg"/>
 						<property name="remoteEICPService" ref="remoteEICPService"/>
 					</bean>
 				</entry>
@@ -215,6 +222,7 @@
 	</bean>
 	<!--查询课表 -->
 	<bean id="menuHandlerMyLesson" class="ipower.micromessage.service.impl.MenuHandlerMyLesson">
+		<property name="picUrl" value="${pic_server_prefix}/lesson.jpg"/>
 		<property name="remoteEICPService" ref="remoteEICPService"/>
 	</bean>
 </beans>

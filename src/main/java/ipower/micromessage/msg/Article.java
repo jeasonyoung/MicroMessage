@@ -11,6 +11,33 @@ public class Article implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String Title,Description,PicUrl,Url;
 	/**
+	 * 构造函数。
+	 * */
+	public Article(){
+		
+	}
+	/**
+	 * 构造函数。
+	 * @param title
+	 * 	消息标题。
+	 * @param url
+	 * 	消息连接。
+	 * */
+	public Article(String title,String url){
+		this.setTitle(title);
+		if(url != null && !url.trim().isEmpty()){
+			this.setUrl(url);
+		}
+	}
+	/**
+	 * 构造函数。
+	 * @param title
+	 * 	消息标题。
+	 * */
+	public Article(String title){
+		this(title,null);
+	}
+	/**
 	 * 获取图文消息标题。
 	 * @return 图文消息标题。
 	 * */

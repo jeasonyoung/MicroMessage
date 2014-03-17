@@ -28,8 +28,38 @@ public interface IRemoteEICPService {
 	 * 反馈数据。
 	 * */
 	public class CallbackData{
-		private String userId;
-		private String body;
+		private Integer code;
+		private String userId,body,error;
+		/**
+		 * 获取反馈代码(0成功，-1失败)。
+		 * @return 反馈代码。
+		 * */
+		public Integer getCode() {
+			return code;
+		}
+		/**
+		 * 设置反馈代码(0成功，-1失败)。
+		 * @param code
+		 * 	反馈代码(0成功，-1失败)。
+		 * */
+		public void setCode(Integer code) {
+			this.code = code;
+		}
+		/**
+		 * 获取错误信息。
+		 * @return 错误信息。
+		 * */
+		public String getError() {
+			return error;
+		}
+		/**
+		 * 设置错误信息。
+		 * @param error
+		 * 	错误信息。
+		 * */
+		public void setError(String error) {
+			this.error = error;
+		}
 		/**
 		 * 获取业务系统用户代码。
 		 * @return 业务系统用户代码。
