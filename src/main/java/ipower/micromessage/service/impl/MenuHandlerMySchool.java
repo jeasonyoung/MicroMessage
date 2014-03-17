@@ -1,12 +1,14 @@
 package ipower.micromessage.service.impl;
 
 import java.util.List;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+
 import ipower.micromessage.msg.Article;
 import ipower.micromessage.msg.BaseMessage;
 import ipower.micromessage.msg.MicroContext;
-import ipower.micromessage.msg.resp.ArticleRespMessage;
+import ipower.micromessage.msg.resp.BaseRespMessage;
 import ipower.micromessage.service.MenuArticleHandler;
 import ipower.micromessage.service.IRemoteEICPService.CallbackData;
 /**
@@ -17,13 +19,12 @@ import ipower.micromessage.service.IRemoteEICPService.CallbackData;
 public class MenuHandlerMySchool extends MenuArticleHandler {
 
 	@Override
-	protected ArticleRespMessage createConent(BaseMessage current, MicroContext context, List<Article> articles) {
+	protected BaseRespMessage createConent(BaseMessage current, MicroContext context, List<Article> articles) {
 		JSONObject post = new JSONObject();
 		post.put("usersysid", context.getUserId());
 		CallbackData callback = this.remoteEICPService.remotePost("MySchool", post);
 		if(callback.getCode() != 0){
-			articles.add(new Article(callback.getError()));
-			return this.createRespMessage(current, articles);
+			return this.handlerMessage(current, context, callback.getError());
 		}
 		
 		JSONObject body = JSON.parseObject(callback.getBody());

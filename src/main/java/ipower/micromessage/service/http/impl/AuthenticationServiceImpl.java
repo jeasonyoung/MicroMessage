@@ -8,7 +8,6 @@ import ipower.micromessage.msg.resp.TextRespMessage;
 import ipower.micromessage.service.http.IAuthenticationService;
 import ipower.micromessage.service.http.IUserAuthentication;
 import ipower.micromessage.service.http.IUserAuthentication.VerifyCallback;
-
 /**
  * 鉴权服务实现类。
  * @author yangyong.
@@ -95,5 +94,4 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 		this.userAuthentication.remove(context.getOpenId());
 		return true;
 	}
-
 }

@@ -156,28 +156,26 @@ public class UserServiceImpl extends DataServiceImpl<User, UserInfo> implements 
 			body.put("password", password);
 			
 			CallbackData result = this.remoteEICPService.remotePost("UserAuthentication", body);
-			String userId = result.getUserId();
-			if(userId != null && !userId.trim().isEmpty()){
-				callback.setSuccess(true);
-				callback.setUserId(userId);
-				boolean isAdd = this.addUser(userId, account, openId);
-				logger.info(isAdd ? "用户验证成功！" :"插入用户本地缓存时发生未知错误!" );
-				return callback;
-			}
-			if(result.getCode() < 0){
-				logger.info("验证用户反馈：[" + result.getCode() + "]:" + result.getError());
-				callback.setSuccess(false);
-				callback.setMessage(result.getError());
-				return callback;
-			}
-			if(result.getCode() == 0 && result.getBody() != null && !result.getBody().trim().isEmpty()){
+			if(result.getCode() == 0){
 				body = JSON.parseObject(result.getBody());
-				String err = body.getString("resultmsg");
-				logger.info("验证用户失败[" + body.getInteger("resultcode")+ "]:" + err);
-				callback.setSuccess(false);
-				callback.setMessage(err);
+				Integer code = body.getInteger("resultcode");
+				String msg = body.getString("resultmsg");
+				callback.setSuccess(code == 0);
+				callback.setMessage(msg);
+				if(callback.isSuccess()){
+					callback.setUserId(result.getUserId());
+					boolean isAdd = this.addUser(callback.getUserId(), account, openId);
+					logger.info(isAdd ? "用户验证成功！" :"插入用户本地缓存时发生未知错误!" );
+					return callback;
+				}
+				logger.info("验证用户失败[" + code + "]:"+ msg);
 				return callback;
 			}
+			logger.info("验证用户反馈：[" + result.getCode() + "]:" + result.getError());
+			callback.setSuccess(false);
+			callback.setMessage(result.getError());
+			return callback;
+			
 		}catch(Exception e){
 			logger.error("校验用户时发生异常：" + e.getMessage(), e);
 			callback.setSuccess(false);

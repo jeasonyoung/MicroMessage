@@ -40,7 +40,7 @@ public final class SignUtil {
 			String result = MD5Util.ConvertHex(bytes);
 			content = null;
 			// 将sha1加密后的字符串可与signature对比.
-			return (result != null && !result.trim().isEmpty()) ? result.toUpperCase().equals(signature.toUpperCase()): false;
+			return (result != null && !result.trim().isEmpty()) ? result.equalsIgnoreCase(signature): false;
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}

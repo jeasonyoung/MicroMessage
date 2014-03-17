@@ -1,12 +1,8 @@
 package ipower.micromessage.service.http.impl;
 
-import java.util.Date;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.log4j.Logger;
-
 import ipower.micromessage.msg.resp.RespMesssageHelper;
 import ipower.micromessage.msg.resp.TextRespMessage;
 import ipower.micromessage.msg.utils.MsgUtil;
@@ -59,8 +55,8 @@ public class CoreServiceImpl implements ICoreService {
 			logger.info("消息类型：" + msgType);
 			
 			//接收消息处理。
-			String out = this.receiveHandler.handler(msgType, params);
-			if(out != null && !out.trim().isEmpty()){
+			return this.receiveHandler.handler(msgType, params);
+			/*if(out != null && !out.trim().isEmpty()){
 				return out;
 			}
 			callback = new TextRespMessage();
@@ -68,7 +64,7 @@ public class CoreServiceImpl implements ICoreService {
 			callback.setToUserName(params.get(REQ_MSG_FromUserName));
 			//公众账号。
 			callback.setFromUserName(params.get(REQ_MSG_ToUserName));
-			callback.setContent("[" + new Date().toString() + "]正在开发测试中... 您的消息类型是：" + msgType);
+			callback.setContent("[" + new Date().toString() + "]正在开发测试中... 您的消息类型是：" + msgType);*/
 		} catch (Exception e) {
 			logger.error("核心业务发生异常：",e);
 			if(params != null){

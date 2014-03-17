@@ -62,7 +62,7 @@ public abstract class MenuArticleHandler extends MenuBaseHandler {
 	 * @return
 	 * 	图文回复对象。
 	 * */
-	protected ArticleRespMessage createRespConent(BaseMessage current,MicroContext context){
+	protected BaseRespMessage createRespConent(BaseMessage current,MicroContext context){
 		List<Article> articles = new ArrayList<Article>();
 		if(this.picUrl != null && !this.picUrl.trim().isEmpty()){
 			Article pic = this.createTopArticle(this.picUrl);
@@ -80,7 +80,7 @@ public abstract class MenuArticleHandler extends MenuBaseHandler {
 	protected Article createTopArticle(String picUrl){
 		Article pic = new Article(); 
 		pic.setPicUrl(picUrl);
-		pic.setTitle("请点击查看……");
+		pic.setTitle("请点击以下条目查看……");
 		return pic;
 	}
 	/**
@@ -94,7 +94,7 @@ public abstract class MenuArticleHandler extends MenuBaseHandler {
 	 * @return
 	 * 	图文回复对象。
 	 * */
-	protected abstract ArticleRespMessage createConent(BaseMessage current,MicroContext context,List<Article> articles);
+	protected abstract BaseRespMessage createConent(BaseMessage current,MicroContext context,List<Article> articles);
 	/**
 	 * 创建图文回复消息对象。
 	 * @param current

@@ -9,7 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 import ipower.micromessage.msg.Article;
 import ipower.micromessage.msg.BaseMessage;
 import ipower.micromessage.msg.MicroContext;
-import ipower.micromessage.msg.resp.ArticleRespMessage;
+import ipower.micromessage.msg.resp.BaseRespMessage;
 import ipower.micromessage.service.MenuArticleHandler;
 import ipower.micromessage.service.IRemoteEICPService.CallbackData;
 /**
@@ -20,20 +20,20 @@ import ipower.micromessage.service.IRemoteEICPService.CallbackData;
 public class MenuHandlerMyScoreReport extends MenuArticleHandler{
 	
 	@Override
-	protected ArticleRespMessage createConent(BaseMessage current,MicroContext context, List<Article> articles) {
+	protected BaseRespMessage createConent(BaseMessage current,MicroContext context, List<Article> articles) {
 		JSONObject post = new JSONObject();
 		post.put("usersysid", context.getUserId());
 		CallbackData callback = this.remoteEICPService.remotePost("MyScoreReport", post);
 		if(callback.getCode() != 0){
-			articles.add(new Article(callback.getError()));
-			return this.createRespMessage(current, articles);
+			return this.handlerMessage(current, context, callback.getError());
 		}
+		
 		JSONArray bodys = JSON.parseArray(callback.getBody());
 		int size = 0;
 		if(bodys == null || (size = bodys.size()) == 0){
-			articles.add(new Article("没有获取到您的报告！"));
-			return this.createRespMessage(current, articles);
+			return this.handlerMessage(current, context, "没有获取到您的报告！");
 		}
+		
 		for(int i = 0; i < size; i++){
 			if(i > MAX_Article_SIZE) break;
 			JSONObject obj = bodys.getJSONObject(i);

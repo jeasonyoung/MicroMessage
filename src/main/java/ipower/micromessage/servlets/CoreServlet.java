@@ -98,7 +98,6 @@ public class CoreServlet extends HttpServlet {
 			 
 		} catch (Exception e) {
 			logger.error("处理微信服务器发来的消息时发生异常：", e);
-			e.printStackTrace();
 		}finally{
 			logger.info("处理完毕！[耗时：" + (System.currentTimeMillis() - before) + " ms]");
 		}
